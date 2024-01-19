@@ -1,0 +1,7 @@
+{
+    "capture_base": "",
+    "type": "spec/overlays/morphology/character_encoding/1.0",
+    "language": "en",
+    "default_encoding": "utf-8",
+    "attr_encoding": {}
+}
