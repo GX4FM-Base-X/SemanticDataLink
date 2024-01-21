@@ -92,8 +92,57 @@ if FILE_VALID:
                 have general fields (*capture_base*, *type* and *language*) and fields which define the overlay.
                 For example *size* in the *morphology_size* overlay. If you don't enter any value in the defining fields,
                 than the overlay is not considered when generating the final JSON Output Document!
-                Also do not forget to confirm your entry in each field (Mac: ⌘ + ↩).     
+                Also do not forget to confirm your entry in each field (Mac: ⌘ + ↩).    
+                ```
     ''')
+
+    with st.expander(label=':red[**Global Vs. Attribute specific**]'):
+        st.markdown("""
+            Many Overlays contain entities that is related to the whole overlay as well as entities that are dataset-attribute specific.
+            Keep in mind that only the data [items specified for the python programming language are valid](https://www.geeksforgeeks.org/python-data-types/)! These are:
+            ```json
+            {
+                "numeric": {
+                    "Integer": "int",
+                    "Float": "float", 
+                }
+                "dictionary": "dict",
+                "boolean": "bool",
+                "set": "set",
+                "sequence_type": {
+                    "Strings": "str",
+                    "Lists": "list",
+                    "Tuple": "tuple"
+                }
+            }
+            ```
+
+            An example is the `semantic_unit.json` overlay:
+            
+            ```json
+            {
+                "capture_base":"f1b325f4edc10ea1dd41980b14de6d658e5b5befec01d01bebecfac2c69a81d6"
+                "type":"spec/overlays/semantic/unit/1.0"
+                "language":"en"
+                "unit":""
+                "attr_unit":{}
+            }
+            ```
+            Here a global unit for the whole overlay can be specified (`unit`) or different units for the different atributes of the dataset can be set (`attr_unit`).
+            Example Input:
+            ```json
+            {
+                "capture_base":"f1b325f4edc10ea1dd41980b14de6d658e5b5befec01d01bebecfac2c69a81d6"
+                "type":"spec/overlays/semantic/unit/1.0"
+                "language":"en"
+                "unit":"kg/s"
+                "attr_unit":{
+                    "age": "int"
+                    "name": "str"
+                    "weight": "float"
+                }
+            }
+        """)
 
     # Sample JSON data for different options
     # pragmatic, semantic, morphologic = allClasses()
@@ -189,9 +238,13 @@ if FILE_VALID:
         for key in keys_to_delete:
             del user_inputs[key[0]][key[1]]
 
+        # Submit and download data
         st.markdown("### Submitted Data:")
         st.json(user_inputs)
 
+        # Downaload file
+        # Serialize to JSON
+        json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False)
 
         # Add all data to database
         # Insert Capture Base
@@ -222,12 +275,12 @@ if FILE_VALID:
         if capture_base_status == 0 and overlay_status == 0:
             st.success(
                 f"Capture Base **_{said}_** and overlays successfuly written to database!")
-    
-    # Downaload file
-    json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False)
-    st.download_button(
-        label="Download JSON",
-        data=json_str,
-        file_name="data.json",
-        mime="application/json"
-    )
+        
+        # Download
+        st.download_button(
+            label="Download JSON",
+            data=json_str,
+            file_name="data.json",
+            mime="application/json"
+        )
+
