@@ -170,7 +170,7 @@ if FILE_VALID:
     st.divider()
     st.divider()
 
-    if st.button("Generate & Download", key='generator', type='primary'):
+    if st.button("Submit to DB", key='generator', type='primary'):
         # Check all keys if they have manually entered values.
         # If yes, print them and use it for generating the output.
         # If not these keys will be neglected
@@ -189,8 +189,9 @@ if FILE_VALID:
         for key in keys_to_delete:
             del user_inputs[key[0]][key[1]]
 
-        st.write("Submitted Data:")
+        st.markdown("### Submitted Data:")
         st.json(user_inputs)
+
 
         # Add all data to database
         # Insert Capture Base
@@ -221,3 +222,12 @@ if FILE_VALID:
         if capture_base_status == 0 and overlay_status == 0:
             st.success(
                 f"Capture Base **_{said}_** and overlays successfuly written to database!")
+    
+    # Downaload file
+    json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False)
+    st.download_button(
+        label="Download JSON",
+        data=json_str,
+        file_name="data.json",
+        mime="application/json"
+    )
