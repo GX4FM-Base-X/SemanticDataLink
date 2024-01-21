@@ -48,6 +48,11 @@ Semantic Data Link is a Streamlit-based web application designed to facilitate t
 
 7. **Download or Use Data:** The final augmented schema can be downloaded or directly used within the application for further data operations.
 
+## Overlay Overview / Description
+
+**TODO!** 
+[oca/overlays/README.md](oca/overlays/README.md)
+
 ## Requirements
 
 - Python 3.x
@@ -69,17 +74,6 @@ Semantic Data Link is a Streamlit-based web application designed to facilitate t
 
 If you want to use a database for storing all files (mongodb) please refer to [docker/mongodb](docker/mongodb). 
 
-## Contribution
-
-Contributions are welcome. Please fork the repository and submit pull requests for any enhancements, bug fixes, or improvements.
-
-## License
-
-This project is licensed under the [Apache 2.0 License](LICENSE.md).
-
----
-*Note: This README is a high-level overview. For detailed instructions, refer to the in-app documentation and tooltips.*
-
 ## Contributing
 
 Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -98,9 +92,7 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 Your Name - [maximilian.staebler@dlr.de](mailto:maximilian.staebler@dlr.de)
 
-Project Link: [https://github.com/maxistaebler/SemanticDataLink](https://github.com/maxistaebler/SemanticDataLink)
-
----
+<!-- ---
 
 This README provides a basic outline that you can customize based on the specific needs and features of your project. It includes sections like an overview of the project, features, installation and usage instructions, contribution guidelines, license information, and contact details.
 
@@ -152,4 +144,4 @@ This README provides a basic outline that you can customize based on the specifi
    - **Sensitive Attributes**: Identified in the Sensitive Overlay, these attributes need special handling due to privacy or ethical considerations, influencing how data is treated in practical scenarios.
    - **Subset and Transformation**: The Subset and Transformation Overlays define subsets of attributes and transformations for data, relevant for practical applications and specific use cases.
 
-These attributes collectively ensure that data managed by the OCA framework is well-structured, meaningful, and contextually relevant, supporting its effective use in various applications.
+These attributes collectively ensure that data managed by the OCA framework is well-structured, meaningful, and contextually relevant, supporting its effective use in various applications. -->
