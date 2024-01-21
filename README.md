@@ -90,7 +90,7 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [maximilian.staebler@dlr.de](mailto:maximilian.staebler@dlr.de)
+Maximilian Stäbler (German Aerospace Center - Institute for AI Safety & Security) - [maximilian.staebler@dlr.de](mailto:maximilian.staebler@dlr.de)
 
 <!-- ---
 
