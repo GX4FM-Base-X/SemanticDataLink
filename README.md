@@ -75,7 +75,7 @@ Contributions are welcome. Please fork the repository and submit pull requests f
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [Apache 2.0 License](LICENSE.md).
 
 ---
 *Note: This README is a high-level overview. For detailed instructions, refer to the in-app documentation and tooltips.*
