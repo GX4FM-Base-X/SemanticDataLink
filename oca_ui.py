@@ -244,6 +244,7 @@ if FILE_VALID:
 
         # Downaload file
         # Serialize to JSON
+        user_inputs["capture_base"] = linkml_dict
         json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False)
 
         # Add all data to database
