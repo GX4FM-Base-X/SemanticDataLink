@@ -242,11 +242,6 @@ if FILE_VALID:
         st.markdown("### Submitted Data:")
         st.json(user_inputs)
 
-        # Downaload file
-        # Serialize to JSON
-        user_inputs["capture_base"] = linkml_dict
-        json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False)
-
         # Add all data to database
         # Insert Capture Base
         capture_base_status = insert_capture_base(linkml_dict, said)
@@ -258,25 +253,38 @@ if FILE_VALID:
                 f'Capture Base **_{said}_** could not be written to database')
 
         # Insert all overlays
-        for top_key in user_inputs.keys():
-            for middle_key, middle_value in user_inputs[top_key].items():
-                overlay_said = generate_said(user_inputs[top_key][middle_key])
-                overlay_status = insert_overlay(
-                    user_inputs[top_key][middle_key],
-                    overlay_said
-                )
-                if overlay_status == -1:
-                    st.error(
-                        f'Item with `capture_base` **_{overlay_said}_** could not be written to database'
+        # Default Overlay (none selected) = 0
+        overlay_status = 0
+        if len(list(user_inputs.keys())) > 0:
+            for top_key in user_inputs.keys():
+                for middle_key, middle_value in user_inputs[top_key].items():
+                    overlay_said = generate_said(user_inputs[top_key][middle_key])
+                    overlay_status = insert_overlay(
+                        user_inputs[top_key][middle_key],
+                        overlay_said
                     )
-                if overlay_status == 1:
-                    st.warning(
-                        f"Overlay **_{said}_** already exists"
-                    )
-        if capture_base_status == 0 and overlay_status == 0:
-            st.success(
-                f"Capture Base **_{said}_** and overlays successfuly written to database!")
-        
+                    if overlay_status == -1:
+                        st.error(
+                            f'Item with `capture_base` **_{overlay_said}_** could not be written to database'
+                        )
+                    if overlay_status == 1:
+                        st.warning(
+                            f"Overlay **_{said}_** already exists"
+                        )
+            if capture_base_status == 0 and overlay_status == 0:
+                st.success(
+                    f"Capture Base **_{said}_** and overlays successfuly written to database!")
+            elif capture_base_status == 0 and overlay_status != 0:
+                st.success(
+                        f"Capture Base **_{said}_** successfuly written to database!")
+            elif capture_base_status != 0 and overlay_status == 0:
+                st.success(
+                        f"Overlay **_{said}_** successfuly written to database!")
+
+        # Downaload file
+        # Serialize to JSON
+        user_inputs["capture_base"] = linkml_dict
+        json_str = json.dumps(user_inputs, indent=2, ensure_ascii=False, default=str)
         # Download
         st.download_button(
             label="Download JSON",
