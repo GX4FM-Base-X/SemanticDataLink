@@ -19,6 +19,10 @@ To use LinkML in your project, first, ensure you have Python installed on your s
 pip install linkml
 ```
 
+## LinkML Process and Usage in SemanticDataLink
+
+![LinkML Usage](linkml--process.png)
+
 ## Getting Started
 
 ### Defining a Model

@@ -1,0 +1,2359 @@
+{
+	"info": {
+		"_postman_id": "f05e9787-952e-479a-8cf1-503784e94377",
+		"name": "XFSC Federated Catalogue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "/users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"participantId\": \"http://gaiax.de\",\r\n    \"firstName\": \"test\",\r\n    \"lastName\": \"test\",\r\n    \"email\": \"email@email.com\",\r\n    \"roleIds\": [\r\n    \"Ro-MU-CA\",\r\n    \"Ro-MU-A\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/roles",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id/roles",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/roles",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"Ro-MU-CA\",\r\n    \"Ro-PA-A\",\r\n    \"Ro-MU-A\",\r\n    \"Ro-SD-A\"\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id/roles",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"participantId\": \"http://gaiax.de\",\r\n    \"firstName\": \"updatedname\",\r\n    \"lastName\": \"updatedlastname\",\r\n    \"email\": \"updatedemail\",\r\n    \"roleIds\": [\r\n        \"Ro-MU-CA\",\r\n        \"Ro-PA-A\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"item": [
+				{
+					"name": "/participants",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"@context\": [\r\n    \"https://www.w3.org/2018/credentials/v1\"\r\n  ],\r\n  \"@id\": \"http://example.edu/verifiablePresentation/self-description1\",\r\n  \"type\": [\r\n    \"VerifiablePresentation\"\r\n  ],\r\n  \"verifiableCredential\": [\r\n    {\r\n      \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\"\r\n      ],\r\n      \"@id\": \"https://www.example.org/legalPerson.json\",\r\n      \"@type\": [\r\n        \"VerifiableCredential\"\r\n      ],\r\n      \"issuer\": \"http://gaiax.de\",\r\n      \"issuanceDate\": \"2022-10-19T18:48:09Z\",\r\n      \"credentialSubject\": {\r\n        \"@context\": {\r\n          \"gax-core\": \"https://w3id.org/gaia-x/core#\",\r\n          \"gax-trust-framework\": \"https://w3id.org/gaia-x/gax-trust-framework#\",\r\n          \"xsd\": \"http://www.w3.org/2001/XMLSchema#\",\r\n          \"vcard\": \"http://www.w3.org/2006/vcard/ns#\"\r\n        },\r\n        \"@id\": \"gax-core:Participant1\",\r\n        \"@type\": \"gax-trust-framework:LegalPerson\",\r\n        \"gax-trust-framework:registrationNumber\": \"1234\",\r\n        \"gax-trust-framework:legalAddress\": {\r\n          \"@type\": \"vcard:Address\",\r\n          \"vcard:country-name\": \"Country\",\r\n          \"vcard:locality\": \"Town Name\",\r\n          \"vcard:postal-code\": \"1234\",\r\n          \"vcard:street-address\": \"Street Name\"\r\n        },\r\n        \"gax-trust-framework:headquarterAddress\": {\r\n          \"@type\": \"vcard:Address\",\r\n          \"vcard:country-name\": \"Country\",\r\n          \"vcard:locality\": \"Town Name\",\r\n          \"vcard:postal-code\": \"1234\",\r\n          \"vcard:street-address\": \"Street Name\"\r\n        },\r\n        \"gax-trust-framework:termsAndConditions\": {\r\n          \"@type\": \"gax-trust-framework:TermsAndConditions\",\r\n          \"gax-trust-framework:content\": {\r\n            \"@type\": \"xsd:anyURI\",\r\n            \"@value\": \"http://example.org/tac\"\r\n          },\r\n          \"gax-trust-framework:hash\": \"1234\"\r\n        },\r\n        \"gax-trust-framework:subOrganisation\": [\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_1\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_2\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_3\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_4\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_5\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_6\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_7\"\r\n          }\r\n        ],\r\n        \"gax-trust-framework:legalName\": \"Provider Name\"\r\n      },\r\n      \"proof\": {\r\n        \"type\": \"JsonWebSignature2020\",\r\n        \"created\": \"2022-12-02T16:05:37Z\",\r\n        \"proofPurpose\": \"assertionMethod\",\r\n        \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n        \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..efXJBVbLUieloVXmK11FEmM8ke_QYhf3ObjxKHzzdujrwgToHcpVKNUYwlnUXk7-V6cuaUFwbWY1zl89u0U2Nu2UKA1kP6iBmUyg1JnWXsCtF1dpFyCZMhrYdbJxF-USa9f4RbTDcymhbRx8ZI9R4qdhDGuxDrez_Nzl2DlJfSL7hE9JBG7R8cgAq1LIfWCTN0xjVr8QvVw3R_HIilDSLv-Clf1WCSAl_7CWXDEGInBW6l7lrJ7efrjZ5GnEwbHZi0b2V0v9hjidqkMc1xl5pl9fIPk5wHsoVLdKgfJ8hUD-EtyuFJGPwk77Mqf7BVcuKR4zqmNX3s0CPCGmAmxXfGyY5ARITjgmI4gXcp1I1ax1YTCjENR8nqgS8rouO6l3xAAFgBqLdqfR1KdDiCYPFd0fTfX1T8A8yiT8o6Pg36Vewy-Jb79aWk9byxSS-xKaQGkSMbpZeErz4FKTXLYwcD8bLXcndPMtF5UlBC_A_t-_BnG5cLeZddSow-4sMs7g2qvnURIX_KRrPtuP5GRVG_cNPJagY5bzUc8lAlSNsRsivf5wJDwrRvYjn3U6FSV8sOBBGVv6UBlopl1JWjUL-9-QLmZUD1jPv9mYUWWChm2YB8dvCjkrvwRCbHFAuab2rYNag61EcYI3lcGwS3Qez-P4AKIpRfTXEpnCNIzJr2E\"\r\n      }\r\n    }\r\n  ],\r\n  \"proof\": {\r\n    \"type\": \"JsonWebSignature2020\",\r\n    \"created\": \"2022-12-02T16:05:37Z\",\r\n    \"proofPurpose\": \"assertionMethod\",\r\n    \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n    \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..IYM1hcL55GNc115qwjdwAiHoxnx7DD4MwWcYNUDgRO2Tj6vcEtKl5Ao1f_uwpTEJBImYrd4tZL9ojDNBOTmOnxFWorsUB-iq5PMvM11xS19tl-hEhRVRY0mnFkT9er2xArWShcO6cNTnDAJuWGCtHxsU-bH3HMHCvT9u2WWKIIIJi9Axp-CGwnNaF7vddEatiXRfuZCj8RCYxKa5goCxE4vueI-OMqIF-AWU86FjTNjDXS9DJI2yYt91SFdgxQqfuG0pJF7oJv9LI-9bJjMRKBSfjPO1hqbxuPzxb4a7nywQedl1_2k2WttUQ3ZDsyju7ktkuGDDPL9p3xq6zyBsFN9shJqdS-9-tw3Nptu_EsNj1vJdNgrOZt1VdfOEGoUsDtfNg2O5XtBt4-TbE617_SgkWQhbzWAPWj47QJjcYJklzkJku7DwBicysvCiWGPOgCzFalTZPm6SL55Bz4a0UtEW8WzjtlxD_j3Mh7WW_sA3vAO9oBLRaWJhQkt0f6EG7sElETizVDB9fq0Ur5QYuHhPmCqZVr5C0VSSBz4OSE_N7DFusNqLhox13f37myfs0RiTpmwEh24EP67kyZSuUtOx004fqAWifIYiyBZj2OTdxnXy7NFiOZl80RM1cJ7WTL02-159_7E88y1LiL39uWUatFYJBCKnaMRO5uQ8BGU\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants/{id}/users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants/:id/users",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants",
+								":id",
+								"users"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"@context\": [\r\n    \"https://www.w3.org/2018/credentials/v1\"\r\n  ],\r\n  \"@id\": \"http://example.edu/verifiablePresentation/self-description1\",\r\n  \"type\": [\r\n    \"VerifiablePresentation\"\r\n  ],\r\n  \"verifiableCredential\": [\r\n    {\r\n      \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\"\r\n      ],\r\n      \"@id\": \"https://www.example.org/legalPerson.json\",\r\n      \"@type\": [\r\n        \"VerifiableCredential\"\r\n      ],\r\n      \"issuer\": \"http://gaiax.de\",\r\n      \"issuanceDate\": \"2022-10-19T18:48:09Z\",\r\n      \"credentialSubject\": {\r\n        \"@context\": {\r\n          \"gax-core\": \"https://w3id.org/gaia-x/core#\",\r\n          \"gax-trust-framework\": \"https://w3id.org/gaia-x/gax-trust-framework#\",\r\n          \"xsd\": \"http://www.w3.org/2001/XMLSchema#\",\r\n          \"vcard\": \"http://www.w3.org/2006/vcard/ns#\"\r\n        },\r\n        \"@id\": \"gax-core:Participant1\",\r\n        \"@type\": \"gax-trust-framework:LegalPerson\",\r\n        \"gax-trust-framework:registrationNumber\": \"1234\",\r\n        \"gax-trust-framework:legalAddress\": {\r\n          \"@type\": \"vcard:Address\",\r\n          \"vcard:country-name\": \"Country\",\r\n          \"vcard:locality\": \"Town Name\",\r\n          \"vcard:postal-code\": \"1234\",\r\n          \"vcard:street-address\": \"Street Name\"\r\n        },\r\n        \"gax-trust-framework:headquarterAddress\": {\r\n          \"@type\": \"vcard:Address\",\r\n          \"vcard:country-name\": \"Country\",\r\n          \"vcard:locality\": \"Town Name\",\r\n          \"vcard:postal-code\": \"1234\",\r\n          \"vcard:street-address\": \"Street Name\"\r\n        },\r\n        \"gax-trust-framework:termsAndConditions\": {\r\n          \"@type\": \"gax-trust-framework:TermsAndConditions\",\r\n          \"gax-trust-framework:content\": {\r\n            \"@type\": \"xsd:anyURI\",\r\n            \"@value\": \"http://example.org/tac\"\r\n          },\r\n          \"gax-trust-framework:hash\": \"1234\"\r\n        },\r\n        \"gax-trust-framework:subOrganisation\": [\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_1\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_2\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_3\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_4\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_5\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_6\"\r\n          },\r\n          {\r\n            \"@id\": \"http://example.org/Provider1_7\"\r\n          }\r\n        ],\r\n        \"gax-trust-framework:legalName\": \"Provider Name\"\r\n      },\r\n      \"proof\": {\r\n        \"type\": \"JsonWebSignature2020\",\r\n        \"created\": \"2022-12-02T16:05:37Z\",\r\n        \"proofPurpose\": \"assertionMethod\",\r\n        \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n        \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..efXJBVbLUieloVXmK11FEmM8ke_QYhf3ObjxKHzzdujrwgToHcpVKNUYwlnUXk7-V6cuaUFwbWY1zl89u0U2Nu2UKA1kP6iBmUyg1JnWXsCtF1dpFyCZMhrYdbJxF-USa9f4RbTDcymhbRx8ZI9R4qdhDGuxDrez_Nzl2DlJfSL7hE9JBG7R8cgAq1LIfWCTN0xjVr8QvVw3R_HIilDSLv-Clf1WCSAl_7CWXDEGInBW6l7lrJ7efrjZ5GnEwbHZi0b2V0v9hjidqkMc1xl5pl9fIPk5wHsoVLdKgfJ8hUD-EtyuFJGPwk77Mqf7BVcuKR4zqmNX3s0CPCGmAmxXfGyY5ARITjgmI4gXcp1I1ax1YTCjENR8nqgS8rouO6l3xAAFgBqLdqfR1KdDiCYPFd0fTfX1T8A8yiT8o6Pg36Vewy-Jb79aWk9byxSS-xKaQGkSMbpZeErz4FKTXLYwcD8bLXcndPMtF5UlBC_A_t-_BnG5cLeZddSow-4sMs7g2qvnURIX_KRrPtuP5GRVG_cNPJagY5bzUc8lAlSNsRsivf5wJDwrRvYjn3U6FSV8sOBBGVv6UBlopl1JWjUL-9-QLmZUD1jPv9mYUWWChm2YB8dvCjkrvwRCbHFAuab2rYNag61EcYI3lcGwS3Qez-P4AKIpRfTXEpnCNIzJr2E\"\r\n      }\r\n    }\r\n  ],\r\n  \"proof\": {\r\n    \"type\": \"JsonWebSignature2020\",\r\n    \"created\": \"2022-12-02T16:05:37Z\",\r\n    \"proofPurpose\": \"assertionMethod\",\r\n    \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n    \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..IYM1hcL55GNc115qwjdwAiHoxnx7DD4MwWcYNUDgRO2Tj6vcEtKl5Ao1f_uwpTEJBImYrd4tZL9ojDNBOTmOnxFWorsUB-iq5PMvM11xS19tl-hEhRVRY0mnFkT9er2xArWShcO6cNTnDAJuWGCtHxsU-bH3HMHCvT9u2WWKIIIJi9Axp-CGwnNaF7vddEatiXRfuZCj8RCYxKa5goCxE4vueI-OMqIF-AWU86FjTNjDXS9DJI2yYt91SFdgxQqfuG0pJF7oJv9LI-9bJjMRKBSfjPO1hqbxuPzxb4a7nywQedl1_2k2WttUQ3ZDsyju7ktkuGDDPL9p3xq6zyBsFN9shJqdS-9-tw3Nptu_EsNj1vJdNgrOZt1VdfOEGoUsDtfNg2O5XtBt4-TbE617_SgkWQhbzWAPWj47QJjcYJklzkJku7DwBicysvCiWGPOgCzFalTZPm6SL55Bz4a0UtEW8WzjtlxD_j3Mh7WW_sA3vAO9oBLRaWJhQkt0f6EG7sElETizVDB9fq0Ur5QYuHhPmCqZVr5C0VSSBz4OSE_N7DFusNqLhox13f37myfs0RiTpmwEh24EP67kyZSuUtOx004fqAWifIYiyBZj2OTdxnXy7NFiOZl80RM1cJ7WTL02-159_7E88y1LiL39uWUatFYJBCKnaMRO5uQ8BGU\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/participants invalid JSON",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\",\r\n        \"https://identity.foundation/presentation-exchange/submission/v1\"\r\n    ],\r\n    \"type\": [\r\n        \"VerifiablePresentation\",\r\n        \"PresentationSubmission\"\r\n    ],\r\n    \"verifiableCredential\": [\r\n        {\r\n            \"@context\": [\r\n                \"https://www.w3.org/2018/credentials/v1\",\r\n                \"https://www.w3.org/2018/credentials/examples/v1\"\r\n            ],\r\n            \"id\": \"123456\",\r\n            \"type\": [\r\n                \"VerifiableCredential\",\r\n                \"IDCardCredential\",\r\n                \"LegalPerson\"\r\n            ],\r\n            \"issuer\": {\r\n                \"id\": \"777\"\r\n            },\r\n            \"issuanceDate\": \"2010-01-01T19:23:24Z\",\r\n            \"credentialSubject\": {\r\n                \"given_name\": \"Fredrik\",\r\n                \"family_name\": \"Str&#246;mberg\",\r\n                \"birthdate\": \"1949-01-22\",\r\n                \"type\": [\r\n        \r\n                        \"IDCardCredential\",\r\n                        \"LegalPerson\"\r\n                ],\r\n                \"id\": \"1234\",\r\n                \"issuer\": \"12345\"\r\n            },\r\n            \"proof\": {\r\n                \"type\": \"JsonWebSignature2020\",\r\n                \"created\": \"2022-06-12T19:38:26.853Z\",\r\n                \"proofPurpose\": \"assertionMethod\",\r\n                \"jws\": \"XXX\",\r\n                \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\"\r\n            }\r\n        }\r\n    ],\r\n    \"id\": \"1\",\r\n    \"holder\": \"did:web:compliance.lab.gaia-x.eu\",\r\n    \"presentation_submission\": {\r\n        \"id\": \"Selective disclosure example presentation\",\r\n        \"definition_id\": \"Selective disclosure example\",\r\n        \"descriptor_map\": [\r\n            {\r\n                \"id\": \"ID Card with constraints\",\r\n                \"format\": \"ldp_vc\",\r\n                \"path\": \"$.verifiableCredential[0]\"\r\n            }\r\n        ]\r\n    },\r\n    \"proof\": {\r\n        \"type\": \"JsonWebSignature2020\",\r\n        \"created\": \"2022-02-25T14:58:43Z\",\r\n        \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n        \"proofPurpose\": \"assertionMethod\",\r\n        \"jws\": \"777\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/participants",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"participants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Self description",
+			"item": [
+				{
+					"name": "/self-descriptions",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<place_sd_here>",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/self-descriptions test",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<place_sd_here>",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/self-descriptions/{hash}/revoke",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions/:hash/revoke",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions",
+								":hash",
+								"revoke"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/self-descriptions",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions?statuses=REVOKED,ACTIVE,DEPRECATED",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions"
+							],
+							"query": [
+								{
+									"key": "statuses",
+									"value": "REVOKED,ACTIVE,DEPRECATED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/self-descriptions/{hash}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions/:hash",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/self-descriptions/{hash}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/self-descriptions/:hash",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"self-descriptions",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "/users",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"participantId\": \"777\",\r\n    \"firstName\": \"test\",\r\n    \"lastName\": \"test\",\r\n    \"email\": \"email@email.com\",\r\n    \"roleIds\": [\r\n    \"offline_access\",\r\n    \"Ro-MU-CA\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/roles",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id/roles",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/roles",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/roles",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/roles",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"uma_authorization\",\r\n    \"offline_access\",\r\n    \"Ro-MU-CA\",\r\n    \"Ro-PA-A\",\r\n    \"default-roles-gaia-x\",\r\n    \"Ro-MU-A\",\r\n    \"Ro-SD-A\"\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/users/:id/roles",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Verifications",
+			"item": [
+				{
+					"name": "/verification",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verification",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"@context\": [\r\n    \"https://www.w3.org/2018/credentials/v1\"\r\n  ],\r\n  \"type\": \"VerifiablePresentation\",\r\n  \"id\": \"presentationID\",\r\n  \"verifiableCredential\": [\r\n    {\r\n      \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\"\r\n      ],\r\n      \"id\": \"http://example.edu/credentials/1872\",\r\n      \"type\": \"VerifiableCredential\",\r\n      \"issuer\": \"http://example.org/test-issuer\",\r\n      \"issuanceDate\": \"2010-01-01T19:73:24Z\",\r\n      \"credentialSubject\": {\r\n        \"@id\": \"http://example.org/test-issuer\",\r\n        \"@type\": \"ServiceOfferingExperimental\",\r\n        \"gax:hasLegallyBindingName\": \"My example provider\",\r\n        \"gax:hasLegallyBindingAddress\": {\r\n          \"id\": \"_:b0\",\r\n          \"type\": \"vcard:Address\",\r\n          \"vcard:street-address\": \"Example street 2\",\r\n          \"vcard:postal-code\": \"99999\",\r\n          \"vcard:country-name\": \"Country Name 2\",\r\n          \"vcard:locality\": \"City Name 2\"\r\n        }\r\n      },\r\n      \"proof\": {\r\n        \"type\": \"JsonWebSignature2020\",\r\n        \"created\": \"2022-10-25T14:45:39Z\",\r\n        \"proofPurpose\": \"assertionMethod\",\r\n        \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n        \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..bXmiMqm_dq2QAXF3TkxtPzciQm6rI45msBEebGoVTD94M_Gh3vN5BdFK9N5lGlu-L2ho8478FAb5WyAOlDGE-_Qcd1GLBgRGqBZ2Q3cAJtib9agRtz3ga4Ee2Fn79mQ7K_3U2z2VhL3GdTQWQvNlge2w01gM6_g78lkHL3LBbXR9MEK3DJI-koxSY0L8WZkxk8mMp8Q5tGLsVxjt999jByy5ZveOr8Gtl7wHjU7VwQldhwVGhZDEpZJZfNH2QNhHhGx5eKOy6Seu9G8a-KS_6j0umJIx_GJG66h3Di2gfXBc_aeD9sR7i_5b3B0_jQQRREm2goOGMlwd-TpA3Mr_c-uZukv6miMe1WB7SU4oMgq0tle_JPReneb2jkZO2xhIBPdAnybS9H39gMdcZrU6Y7j-eRQQ2jH0fjR3nxSAyS8BTPYF5WoQ3r36Uc1ggeLt6w8PgBDRMGWRwcwA3G-PaXPR-GdA6r-c1gUDpMVS0_LLAOQPCZDBZp_AQs8DQ14Fb32rUtcQVOVItRhl2Bxo2DCYwn0p-GYENtnP-EsomEdcOgQz2lY8Sam3Vp9xl5o00hsKa0YaLGqZ-vWM5Ut9N0x4Oxp5HtOBlki9oM4jX91sNANHPRnW1eSH8EkuOSQamvzo1JkND-LScT8EU5a6EVozK9rjpwtZi9Wqs5jqDfY\"\r\n      }\r\n    }\r\n  ],\r\n  \"proof\": {\r\n    \"type\": \"JsonWebSignature2020\",\r\n    \"created\": \"2022-10-25T14:45:39Z\",\r\n    \"proofPurpose\": \"assertionMethod\",\r\n    \"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n    \"jws\": \"eyJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdLCJhbGciOiJQUzI1NiJ9..zWDQP25FCASok_EgrJT_3DfQeySRGHxBUQxu1UFNZqdb9eN_74e2hCf9sZ1Wdd6zJGihI70vxJjZCptUMhBGqWO4OjXL998vdXah09OQ7fFP-5W3hjEkdWkqQ9N1msqUeSomW77_v0xH4zG1eHpIKGEi1Zni_IiP_oZJZSpvb5R5NiNd-Gjve1o1R6cd0VAYZaaFs3o5tuy4sbFbdLcTKz7i3WI0zz6gsVwZMNFm5kvRtOs_8bjl38rZLaXh7mPR5gfajJ5rnyNoI3yvI6DU5fN8HuCWKLPyQ9PNs5ZU2Kl5iiLu3p6PziVrE3sV0_LRMR2NBX4orHfweIRfniF2d3aVoayi2t0nWn-YMKrangbZ5U5cMnc0AET5CwegYagkA81jEuaz5iOc2WtaJeEdJTBdRAB6_KWXhc2ImDyrK8vjqMWuanNPwjaBFEEi1sAbQ0HxBS3kVbGbVaefhBpBWd1pqjt1gMapTXiFWSS_r9Haq1ED6a06kI3qKloH3oO1Dt1wnwq3am_ZVpSbbavMaY3IMGgzvrMfWup4Vhy5V_vK1YVOIZQkAMIH2Ufj4gjYiu1xdUbnQFwSs8CFSGUyzwby2S1yYeHevBcMOuRmW_8MqHM0kcwXViXUGREyQJR9ArJZuTzU2a26nRThfuVjXKg6gDQcYzVpd55javCNYas\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification?verifySemantics=true&verifySchema=true&verifySignatures=true",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							],
+							"query": [
+								{
+									"key": "verifySemantics",
+									"value": "true"
+								},
+								{
+									"key": "verifySchema",
+									"value": "true"
+								},
+								{
+									"key": "verifySignatures",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verification test different files",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"@context\": [\"https://www.w3.org/2018/credentials/v1\"],\r\n  \"type\": [\"VerifiablePresentation\"],\r\n  \"holder\": \"did:web:vc.transmute.world\",\r\n  \"verifiableCredential\": [\r\n    {\r\n      \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\",\r\n        {\r\n          \"ex\": \"https://example.org/examples#\",\r\n          \"schema\": \"http://schema.org/\",\r\n          \"rdf\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\",\r\n          \"BachelorDegree\": \"ex:BachelorDegree\",\r\n          \"UniversityDegreeCredential\": \"ex:UniversityDegreeCredential\",\r\n          \"degree\": \"ex:degree\",\r\n          \"name\": {\"@id\": \"schema:name\", \"@type\": \"rdf:HTML\"}\r\n        }\r\n      ],\r\n      \"id\": \"http://example.gov/credentials/3732\",\r\n      \"type\": [\"VerifiableCredential\", \"LegalPerson\"],\r\n      \"issuer\": \"did:v1:test:nym:z6MkhdmzFu659ZJ4XKj31vtEDmjvsi5yDZG5L7Caz63oP39k\",\r\n      \"issuanceDate\": \"2020-03-10T04:24:12.164Z\",\r\n      \"credentialSubject\": {\r\n        \"id\": \"did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd\",\r\n        \"degree\": {\r\n          \"type\": \"BachelorDegree\",\r\n          \"name\": \"Bachelor of Science and Arts\"\r\n        }\r\n      },\r\n      \"proof\": {\r\n        \"type\": \"Ed25519Signature2018\",\r\n        \"created\": \"2019-12-11T03:50:55Z\",\r\n        \"verificationMethod\": \"did:v1:test:nym:z6MkhdmzFu659ZJ4XKj31vtEDmjvsi5yDZG5L7Caz63oP39k#z6MkiukuAuQAE8ozxvmahnQGzApvtW7KT5XXKfojjwbdEomY\",\r\n        \"proofPurpose\": \"assertionMethod\",\r\n        \"jws\": \"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uzx8px7eGewfc5Qa-GN1qjcYZH4nX3PBBaFW22x_573nnMu_Uzn6oT6ITL54QEk08XCqCE2OX2L-8ovsffXPDg\"\r\n      }\r\n    }\r\n  ],\r\n  \"proof\": {\r\n    \"type\": \"Ed25519Signature2018\",\r\n    \"created\": \"2020-04-16T17:58:26Z\",\r\n    \"verificationMethod\": \"did:web:vc.transmute.world#z6MksHh7qHWvybLg5QTPPdG2DgEjjduBDArV9EF9mRiRzMBN\",\r\n    \"proofPurpose\": \"authentication\",\r\n    \"challenge\": \"99612b24-63d9-11ea-b99f-4f66f3e4f81a\",\r\n    \"domain\": \"issuer.example.com\",\r\n    \"jws\": \"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..FtI4bekQdsVyx9OXcz4a6hL6Y2GAQ9gjA1_nQTmYXLCHenBnap-LlaLlh3DGXdATkXz7Oq5iCRcxTvc4aI7oCg\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification?verifySemantics=true&verifySchema=true&verifySignatures=true",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							],
+							"query": [
+								{
+									"key": "verifySemantics",
+									"value": "true"
+								},
+								{
+									"key": "verifySchema",
+									"value": "true"
+								},
+								{
+									"key": "verifySignatures",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verification signatures error",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"@context\": [\r\n        \"https://www.w3.org/2018/credentials/v1\",\r\n        \"https://identity.foundation/presentation-exchange/submission/v1\"\r\n    ],\r\n    \"type\": [\r\n        \"VerifiablePresentation\",\r\n        \"PresentationSubmission\"\r\n    ],\r\n    \"verifiableCredential\": [\r\n        {\r\n            \"@context\": [\r\n                \"https://www.w3.org/2018/credentials/v1\",\r\n                \"https://www.w3.org/2018/credentials/examples/v1\"\r\n            ],\r\n            \"id\": \"123456\",\r\n            \"type\": [\r\n                \"VerifiableCredential\",\r\n                \"IDCardCredential\",\r\n                \"ServiceOfferingExperimental\"\r\n            ],\r\n            \"issuer\": {\r\n                \"id\": \"123456\"\r\n            },\r\n            \"issuanceDate\": \"2010-01-01T19:23:24Z\",\r\n            \"credentialSubject\": {\r\n                \"given_name\": \"Fredrik\",\r\n                \"family_name\": \"Str&#246;mberg\",\r\n                \"birthdate\": \"1949-01-22\",\r\n                \"type\": [\r\n        \r\n                        \"IDCardCredential\",\r\n                        \"ServiceOfferingExperimental\"\r\n                ],\r\n                \"id\": \"123456\",\r\n                \"issuer\": \"123456\"\r\n            },\r\n\t\t\t\"proof\": {\r\n\t\t\t\t\"type\": \"JsonWebSignature2020\",\r\n\t\t\t\t\"created\": \"2022-06-12T19:38:26.853Z\",\r\n\t\t\t\t\"proofPurpose\": \"assertionMethod\",\r\n\t\t\t\t\"jws\": \"XXX\",\r\n\t\t\t\t\"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\"\r\n\t\t\t}\r\n        }\r\n    ],\r\n    \"id\": \"1234df56\",\r\n    \"holder\": \"did:web:compliance.lab.gaia-x.eu\",\r\n    \"presentation_submission\": {\r\n        \"id\": \"Selective disclosure example presentation\",\r\n        \"definition_id\": \"Selective disclosure example\",\r\n        \"descriptor_map\": [\r\n            {\r\n                \"id\": \"ID Card with constraints\",\r\n                \"format\": \"ldp_vc\",\r\n                \"path\": \"$.verifiableCredential[0]\"\r\n            }\r\n        ]\r\n    },\r\n\t\"proof\": {\r\n\t\t\"type\": \"JsonWebSignature2020\",\r\n\t\t\"created\": \"2022-02-25T14:58:43Z\",\r\n\t\t\"verificationMethod\": \"did:web:compliance.lab.gaia-x.eu\",\r\n\t\t\"proofPurpose\": \"assertionMethod\",\r\n\t\t\"jws\": \"XXX\"\r\n\t}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification?verifySignatures=false",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							],
+							"query": [
+								{
+									"key": "verifySignatures",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verification semantic error",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"@id\": \"http://example.edu/verifiablePresentation/self-description1\",\r\n\t\"type\": [\r\n\t\t\"VerifiablePresentation\"\r\n\t],\r\n\t\"issuer\": \"https://example.edu/issuers/particiant1\",\r\n\t\"issuanceDate\": \"2010-01-01T00:00:00Z\",\r\n\t\"verifiableCredential\": [{\r\n\t\t\t\"@id\": \"http://example.edu/verifiableCred/participantVC\",\r\n\t\t\t\"type\": [\r\n\t\t\t\t\"VerifiableCredential\"\r\n\t\t\t],\r\n\t\t\t\"issuer\": \"https://example.edu/issuers/particiant1\",\r\n\t\t\t\"issuanceDate\": \"2010-01-01T00:00:00Z\",\r\n\t\t\t\"credentialSubject\": [{\r\n\t\t\t\t\"@id\": \"did:example:particiant1\",\r\n\t\t\t\t\"type\": \"participant\",\r\n\t\t\t\t\"registrationNumber\": {\r\n\t\t\t\t\t\"@value\": \"3234566\",\r\n\t\t\t\t\t\"@type\": \"xsd:string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"headquarterAddress.countryCode\": {\r\n\t\t\t\t\t\"@value\": \"DEU\",\r\n\t\t\t\t\t\"@type\": \"xsd:string\"\r\n\t\t\t\t},\r\n\t\t\t\t\"legalAddress.countryCode\": {\r\n\t\t\t\t\t\"@value\": \"DEU\",\r\n\t\t\t\t\t\"@type\": \"xsd:string\"\r\n\t\t\t\t}\r\n\t\t\t}],\r\n\t\t\t\"proof\": {\r\n\t\t\t\t\"type\": \"JsonWebSignature2020\",\r\n\t\t\t\t\"created\": \"2022-02-25T14:58:43Z\",\r\n\t\t\t\t\"verificationMethod\": \"https://example.edu/issuers/565049#key-1\",\r\n\t\t\t\t\"proofPurpose\": \"assertionMethod\",\r\n\t\t\t\t\"jws\": \"XXX\"\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t\"proof\": {\r\n\t\t\"type\": \"JsonWebSignature2020\",\r\n\t\t\"created\": \"2022-02-25T14:58:43Z\",\r\n\t\t\"verificationMethod\": \"https://example.edu/issuers/565049#key-1\",\r\n\t\t\"proofPurpose\": \"assertionMethod\",\r\n\t\t\"jws\": \"XXX\"\r\n\t}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification?verifySemantics=false",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							],
+							"query": [
+								{
+									"key": "verifySemantics",
+									"value": "false"
+								},
+								{
+									"key": "verifySignatures",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/verification syntactic error",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"@id\": \"http://example.edu/verifiablePresentation/self-description1\",\r\n\t\"type\": [\r\n\t\t\"VerifiablePresentation\"\r\n\t],\r\n\t\"issuer\": \"https://example.edu/issuers/particiant1\",\r\n\t\"issuanceDate\": \"2010-01-01T00:00:00Z\",\r\n\t\"verifiableCredential\": [{\r\n\t\t\t\"@id\": \"http://example.edu/verifiableCred/participantVC\",\r\n\t\t\t\"type\": [\r\n\t\t\t\t\"VerifiableCredential\"\r\n\t\t\t],\r\n\t\t\t\"issuer\": \"https://example.edu/issuers/particiant1\",\r\n\t\t\t\"issuanceDate\": \"2010-01-01T00:00:00Z\",\r\n\t\t\t\"credentialSubject\": [{\r\n\t\t\t\t\"@id\": \"did:example:particiant1\",\r\n\t\t\t\t\"type\": \"participant\",\r\n\t\t\t\t\"registrationNumber\": {\r\nxample.edu/issuers/565049#key-1\",\r\n\t\t\"proofPurpose\": \"assertionMethod\",\r\n\t\t\"jws\": \"XXX\"\r\n\t}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/verification?verifySchema=false",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"verification"
+							],
+							"query": [
+								{
+									"key": "verifySchema",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "/query",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/query",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query MATCH",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"statement\": \"MATCH (n:LegalPerson)-[:legalAddress]->(a:Address {locality: 'Town Name'}) return n, a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/query",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query MATCH test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"statement\": \"MATCH (n:ServiceOffering)-[:hasLegallyBindingAddress]->(a:Address) where a.locality = 'City Name 2' return n, a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/query",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query DELETE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n\"statement\": \"MATCH (n) DETACH DELETE n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/query",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query CREATE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n\"statement\": \"CREATE (n:Person {name: 'TestUser', title: 'Developer'})\",\"parameters\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/query",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schema",
+			"item": [
+				{
+					"name": "/schemas",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "ontology",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/latest",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas/latest?type=ontology",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas",
+								"latest"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "SHAPE",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "VOCABULARY",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "ontology"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/id",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/rdf+xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schemas/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/schemas/:id",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"schemas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session management",
+			"item": [
+				{
+					"name": "/session",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/session",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"session"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "ontology",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/session",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{federated_catalogue_protocol}}://{{federated_catalogue_address}}/session",
+							"protocol": "{{federated_catalogue_protocol}}",
+							"host": [
+								"{{federated_catalogue_address}}"
+							],
+							"path": [
+								"session"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "ontology",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Retrieve access token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"access_token\", jsonData.access_token);",
+									"pm.collectionVariables.set(\"refresh_token\", jsonData.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{keycloak_user_username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{keycloak_user_password}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloak_protocol}}://{{keycloak_address}}/realms/gaia-x/protocol/openid-connect/token",
+							"protocol": "{{keycloak_protocol}}",
+							"host": [
+								"{{keycloak_address}}"
+							],
+							"path": [
+								"realms",
+								"gaia-x",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "client_id",
+			"value": "federated-catalogue"
+		},
+		{
+			"key": "client_secret",
+			"value": "UXvntBMlmn6m05u2Nxko0vDri8gJj2HU"
+		},
+		{
+			"key": "federated_catalogue_address",
+			"value": "fc-server.gxfs.dev"
+		},
+		{
+			"key": "federated_catalogue_protocol",
+			"value": "http"
+		},
+		{
+			"key": "keycloak_user_username",
+			"value": ""
+		},
+		{
+			"key": "keycloak_user_password",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		},
+		{
+			"key": "keycloak_address",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "keycloak_protocol",
+			"value": "http",
+			"type": "default"
+		}
+	]
+}
