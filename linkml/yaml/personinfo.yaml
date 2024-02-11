@@ -31,6 +31,8 @@ classes:
         range: integer
         minimum_value: 0
         maximum_value: 200
+      test:
+        range: HttpsIdentifier
     id_prefixes:
       - ORCID
   Container:

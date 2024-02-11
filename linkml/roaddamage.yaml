@@ -1,0 +1,48 @@
+id: http://www.base-x/model/roaddamage
+name: roaddamage
+prefixes:
+#  gx: http://w3id.org/gaia-x/gx-trust-framework/
+  linkml: https://w3id.org/linkml/
+  base-x: http://www.base-x/model/
+imports:
+  - linkml:types
+ # - resource
+default_prefix: base-x
+default_range:  string
+
+classes:
+  Roaddamage:
+    title: 'Road damage'
+    #is_a: Resource
+    abstract: false
+    attributes:
+      type:
+        title: 'type'
+        required: true
+        multivalued: false
+      subtype:
+        title: 'subtype'
+        required: true
+        multivalued: true
+      longitude:
+        title: 'longitude'
+        required: true
+        multivalued: false
+        range: float
+      latitude:
+        title: 'latitude'
+        required: true
+        multivalued: false
+        range: float
+      lastObservation:
+        title: 'last observation'
+        description: 'At what time this situation was last observed.'
+        required: true
+        multivalued: false
+        range: datetime
+      heading:
+        title: 'heading'
+        description: 'Heading information.'
+        required: true
+        multivalued: false
+        range: float
