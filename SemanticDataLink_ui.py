@@ -1,11 +1,20 @@
-import streamlit as st
-import yaml
-import re
-from linkml.generators import shaclgen, owlgen
-from io import BytesIO
-import zipfile
+from helpers import *
 
 st.set_page_config(layout="wide")
+
+
+def generate_valid_url(base_url, path):
+    # Trim leading and trailing spaces
+    base_url = base_url.strip()
+    path = path.strip()
+
+    # Encode path to ensure it's safe for URL usage
+    encoded_path = quote_plus(path)
+
+    # Combine the base URL and the encoded path
+    full_url = urljoin(base_url, encoded_path)
+
+    return full_url
 
 
 def contains_number(s):
@@ -21,6 +30,22 @@ def pattern_test(s, regex):
         return True
     else:
         return False
+
+
+def convert_to_number(s):
+    # Regex for matching integers and floating-point numbers
+    int_pattern = r"^-?\d+$"
+    float_pattern = r"^-?\d+\.\d+$"
+
+    # Check if the string is an integer
+    if re.match(int_pattern, s):
+        return int(s), 'int'
+    # Check if the string is a float
+    elif re.match(float_pattern, s):
+        return float(s), 'float'
+    else:
+        raise ValueError(
+            "The string does not represent a valid integer or floating-point number.")
 
 
 # Predefined datatypes for selection
@@ -39,17 +64,28 @@ if 'attribute_details' not in st.session_state:
 
 if 'dataset_id' not in st.session_state:
     st.session_state.dataset_id = {}
+if 'main_prefix' not in st.session_state:
+    st.session_state.main_prefix = {}
 if 'dataset_name' not in st.session_state:
     st.session_state.dataset_name = {}
 if 'class_uri' not in st.session_state:
     st.session_state.class_uri = {}
 
+if 'rdf_test_successfull' not in st.session_state:
+    st.session_state.rdf_test_successfull = False
+if 'said' not in st.session_state:
+    st.session_state.said = {}
+if 'yaml_string' not in st.session_state:
+    st.session_state.yaml_string = {}
+
 # Sidebar for general information, global variables, and attribute manipulation
 with st.sidebar:
 
     st.subheader("General Information")
+    st.session_state.main_prefix = st.text_input(
+        "Main Prefix", value="https://base-x-ecosystem.com/")
     st.session_state.dataset_id = st.text_input(
-        "ID", placeholder="https://yourschema.org/")
+        "ID", placeholder="base-schema")
     st.session_state.dataset_name = st.text_input(
         "Name", placeholder="yourSchemaName")
 
@@ -65,7 +101,7 @@ with st.sidebar:
     if st.button('Add Prefix'):
         if global_var_key and global_var_value:
             st.session_state.global_vars[global_var_key] = global_var_value
-            st.rerun()
+            # st.rerun()
             # Update without rerun to maintain selections
 
     # Delete global variable
@@ -207,7 +243,7 @@ def add_attribute(idx, global_vars, datatype_selections):
 
 
 # Main section for attributes and export button
-st.title("Define Attributes")
+st.title("SemanticDataLink - Base Attributes")
 for i in range(1, st.session_state.num_attributes + 1):
     add_attribute(i, st.session_state.global_vars,
                   st.session_state.datatype_selections)
@@ -216,7 +252,7 @@ st.text("")
 st.divider()
 
 # Export and Validate
-if st.button('Export and Validate LinkML', type='primary'):
+if st.button('Validate LinkML', type='primary'):
 
     attributes_yaml = {}
     all_good = True
@@ -252,11 +288,13 @@ if st.button('Export and Validate LinkML', type='primary'):
     if all_good:
         # Add default prefix
         st.session_state.global_vars[
-            st.session_state.dataset_id] = f'https://schema.org/{st.session_state.dataset_id}'
+            st.session_state.dataset_id] = st.session_state.main_prefix
 
+        valid_url = generate_valid_url(
+            st.session_state.main_prefix, st.session_state.dataset_id)
         data_to_export = {
             # st.session_state.dataset_id,
-            "id": f'https://schema.org/{st.session_state.dataset_id}',
+            "id": valid_url,
             "name": st.session_state.dataset_name,
             "prefixes": st.session_state.global_vars,
             "imports": "linkml:types",
@@ -276,10 +314,29 @@ if st.button('Export and Validate LinkML', type='primary'):
             elif details['datatype'] == "integer" or details['datatype'] == "float" or details['datatype'] == "decimal" or details['datatype'] == "double":
                 data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
                                                                                      ]['range'] = details['datatype']
-                data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
-                                                                                     ]['minimum_value'] = float(details['minimum_value'])
-                data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
-                                                                                     ]['maximum_value'] = float(details['maximum_value'])
+                # Validate Numbers
+                minimum_value, minimum_value_type = convert_to_number(
+                    details['minimum_value'])
+                maximum_value, maximum_value_type = convert_to_number(
+                    details['maximum_value'])
+                if minimum_value_type == 'int':
+                    data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
+                                                                                         ]['minimum_value'] = minimum_value
+                if minimum_value_type == 'float':
+                    data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
+                                                                                         ]['minimum_value'] = minimum_value
+                if minimum_value_type != 'int' and minimum_value_type != 'float':
+                    st.error('Please enter a valid minium number')
+
+                if maximum_value_type == 'int':
+                    data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
+                                                                                         ]['maximum_value'] = maximum_value
+                if maximum_value_type == 'float':
+                    data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
+                                                                                         ]['maximum_value'] = maximum_value
+                if maximum_value_type != 'int' and maximum_value_type != 'float':
+                    st.error('Please enter a valid maximum number')
+
             else:
                 data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
                                                                                      ]['range'] = details['datatype']
@@ -301,95 +358,204 @@ if st.button('Export and Validate LinkML', type='primary'):
                 data_to_export['classes'][st.session_state.dataset_id]['attributes'][details['name']
                                                                                      ]['description'] = details['description']
 
-        yaml_str = yaml.dump(
+        st.session_state.yaml_string = yaml.dump(
             data_to_export, sort_keys=False, allow_unicode=True)
-        st.text_area("YAML Output", yaml_str, height=300)
+        st.text_area("YAML Output", st.session_state.yaml_string, height=300)
 
-        rdf_test_successfull = False
         try:
             # Attempt to generate the SHACL graph
-            shacl_out = shaclgen.ShaclGenerator(str(yaml_str)).as_graph()
+            shacl_out = shaclgen.ShaclGenerator(
+                str(st.session_state.yaml_string)).as_graph()
             st.success("SHACL graph generation successful.")
-            rdf_test_successfull = True
+            st.session_state.rdf_test_successfull = True
         except Exception as e:
             # Handle exceptions specific to ShaclGenerator
             st.error(f"An error occurred during SHACL generation: {e}")
-            rdf_test_successfull = False
+            st.session_state.rdf_test_successfull = False
 
         try:
             # Attempt to generate the OWL graph
-            owl_out = owlgen.OwlSchemaGenerator(str(yaml_str)).as_graph()
+            owl_out = owlgen.OwlSchemaGenerator(
+                str(st.session_state.yaml_string)).as_graph()
             st.success("OWL graph generation successful.")
-            rdf_test_successfull = True
+            st.session_state.rdf_test_successfull = True
         except Exception as e:
             # Handle exceptions specific to OwlSchemaGenerator
             st.error(f"An error occurred during OWL generation: {e}")
-            rdf_test_successfull = False
+            st.session_state.rdf_test_successfull = False
 
-        if rdf_test_successfull:
+if st.session_state.rdf_test_successfull:
 
-            # Function to serialize a graph and add it to a ZIP file
-            def add_graph_to_zip(zipfile_obj, graph, filename):
-                # Serialize the graph to Turtle format
-                ttl_data = graph.serialize(format='turtle')
-                zipfile_obj.writestr(filename, ttl_data)
+    st.text("")
+    st.divider()
 
-            # Create a ZIP file in memory
-            zip_buffer = BytesIO()
-            with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
-                add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
-                add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
+    st.header('Add Overlays to SemanticDataLink')
 
-            # Prepare the ZIP file for downloading
-            zip_buffer.seek(0)
-            zip_bytes = zip_buffer.getvalue()
+    # Create Capture Base ID
+    try:
+        st.session_state.said = generate_said(yaml_str)
+        st.success('Capture Base ID successfully generated')
+        st.code(f'''{st.session_state.said}''', language="python")
+    except:
+        st.error('Error while compiling Capture Base ID')
+    st.divider()
+    st.markdown('''
+                Overlays are task-specific objects that provide cryptographically-bound layers 
+                of definitional or contextual metadata to a Capture Base. 
+                Any actor interacting with a published Capture Base can use Overlays 
+                to transform how inputted data and metadata are displayed to a 
+                viewer or guide an agent in applying a custom process to captured data.
 
-            st.download_button(label="Download Graphs (SHACL and OWL)",
-                               data=zip_bytes,
-                               file_name="graphs.zip",
-                               mime="application/zip")
+                #### Important
+                
+                You can click on each expander to enter individual data. NOTE: The differnt overlays
+                have general fields (*capture_base*, *type* and *language*) and fields which define the overlay.
+                For example *size* in the *morphology_size* overlay. If you don't enter any value in the defining fields,
+                than the overlay is not considered when generating the final JSON Output Document!
+                Also do not forget to confirm your entry in each field (Mac: ⌘ + ↩).    
+                ```
+    ''')
 
-            # # Function to serialize graphs to Turtle format
-            # def serialize_graph_to_ttl(graph):
-            #     return graph.serialize(format='turtle')
+    with st.expander(label=':red[**Global Vs. Attribute specific**]'):
+        st.markdown("""
+            Many Overlays contain entities that is related to the whole overlay as well as entities that are dataset-attribute specific.
+            Keep in mind that only the data [items specified for the python programming language are valid](https://www.geeksforgeeks.org/python-data-types/)! These are:
+            ```json
+            {
+                "numeric": {
+                    "Integer": "int",
+                    "Float": "float", 
+                }
+                "dictionary": "dict",
+                "boolean": "bool",
+                "set": "set",
+                "sequence_type": {
+                    "Strings": "str",
+                    "Lists": "list",
+                    "Tuple": "tuple"
+                }
+            }
+            ```
 
-            # # Serialize SHACL graph to Turtle
-            # shacl_ttl = serialize_graph_to_ttl(shacl_out)
-            # st.download_button(label="Download SHACL Graph",
-            #                    data=shacl_ttl,
-            #                    file_name="shacl_graph.shacl.ttl",
-            #                    mime='text/turtle')
+            An example is the `semantic_unit.json` overlay:
+            
+            ```json
+            {
+                "capture_base":"f1b325f4edc10ea1dd41980b14de6d658e5b5befec01d01bebecfac2c69a81d6"
+                "type":"spec/overlays/semantic/unit/1.0"
+                "language":"en"
+                "unit":""
+                "attr_unit":{}
+            }
+            ```
+            Here a global unit for the whole overlay can be specified (`unit`) or different units for the different atributes of the dataset can be set (`attr_unit`).
+            Example Input:
+            ```json
+            {
+                "capture_base":"f1b325f4edc10ea1dd41980b14de6d658e5b5befec01d01bebecfac2c69a81d6"
+                "type":"spec/overlays/semantic/unit/1.0"
+                "language":"en"
+                "unit":"kg/s"
+                "attr_unit":{
+                    "age": "int"
+                    "name": "str"
+                    "weight": "float"
+                }
+            }
+        """)
 
-            # # Button to download OWL graph
-            # # Serialize OWL graph to Turtle
-            # owl_ttl = serialize_graph_to_ttl(owl_out)
-            # st.download_button(label="Download OWL Graph",
-            #                    data=owl_ttl,
-            #                    file_name="owl_graph.ttl",
-            #                    mime='text/turtle')
+    # Sample JSON data for different options
+    # pragmatic, semantic, morphologic = allClasses()
+    files = glob.glob("oca/overlays/*.json")
+    options = {
+        "Morphologic": [x for x in files if x.split('/')[-1].split('_')[0] == 'morphology'],
+        "Semantic": [x for x in files if x.split('/')[-1].split('_')[0] == 'semantic'],
+        "Pragmatic": [x for x in files if x.split('/')[-1].split('_')[0] == 'pragmatic']
+    }
+    st.write(f"""**:blue[Morphologic: {len(options['Morphologic'])} files 
+             --- Semantic: {len(options['Semantic'])} files
+             --- Pragmatic: {len(options['Pragmatic'])} files]**""")
 
+    # Multiselect widget to choose options
+    user_inputs = {}
+    options_multiselect = st.multiselect("Select Options", options, options)
+    count = 0
+    for option in options_multiselect:
+        # Add top-level key to dict
+        user_inputs[option] = {}
+        with st.expander(option):
+            # Dictionary to keep track of checkbox states
+            checkbox_states = {}
+            for overlay in options[option]:
+                checkbox_states[overlay] = st.checkbox(
+                    f'{overlay.split("/")[-1]}')
+            for checkbox, is_checked in checkbox_states.items():
+                if is_checked:
+                    user_inputs[option][checkbox] = {}
+                    st.subheader(checkbox)
+                    with open(checkbox) as json_file:
+                        my_dict = dict(json.load(json_file))
+                        my_dict['capture_base'] = st.session_state.said
+                    st.write(my_dict)
 
-# if st.button('Export to YAML', type='primary'):
-#     # General attributes missing
-#     st.json(st.session_state.attribute_details)
-#     attributes_yaml = []
-#     for idx, details in st.session_state.attribute_details.items():
-#         attribute_yaml = {
-#             "name": details['name'],
-#             "type": details['datatype'],
-#             "multivalued": details['multivalued'],
-#             # "global_var": details['global_var']
-#         }
-#         if details['datatype'] == 'enum':
-#             attribute_yaml['permissible_values'] = {
-#                 value: {} for value in details['enum_values']}
-#         attributes_yaml.append(attribute_yaml)
+                    # Dictionary to store user inputs
+                    for key, val in my_dict.items():
+                        # Prevent capture base id from changes
+                        if key == 'capture_base':
+                            json_input = st.text_area(
+                                f":red[{key}] set programatically:",
+                                key=count,
+                                value=json.dumps(val),
+                                disabled=True
+                            )
+                            # st.write(f'Capture Base ID: --- {said} ---')
+                        # If key == 'type' or 'language' set default values
+                        if key == 'type' or key == 'language':
+                            json_input = st.text_area(
+                                f"Enter value for :red[{key}] in JSON format:",
+                                key=count,
+                                value=json.dumps(val)
+                            )
+                        if key != 'type' and key != 'language' and key != 'capture_base':
+                            # User inputs JSON data for each key
+                            json_input = st.text_area(
+                                f"Enter value for :red[{key}] in JSON format:", key=count)
+                        try:
+                            # Parse the JSON input
+                            user_inputs[option][checkbox][key] = json.loads(
+                                json_input)
+                            st.success(
+                                f'Input saved --- (  {json_input}  )')
+                        except json.JSONDecodeError:
+                            if json_input:  # Only show an error if the user has entered something
+                                st.error(
+                                    f"Invalid JSON format for {key}")
+                        except:
+                            st.error('Other Error')
 
-#     data_to_export = {
-#         "dataset_id": dataset_id,
-#         "dataset_name": dataset_name,
-#         "global_vars": st.session_state.global_vars,
-#         "attributes": attributes_yaml
-#     }
-#     yaml_str = yaml.dump(data_to_export, sort_keys=False, allow_unicode=True)
-#     st.text_area("YAML Output", yaml_str, height=300)
+                        # Increaae counter
+                        count += 1
+
+    st.divider()
+    st.divider()
+
+    # # Function to serialize a graph and add it to a ZIP file
+    # def add_graph_to_zip(zipfile_obj, graph, filename):
+    #     # Serialize the graph to Turtle format
+    #     ttl_data = graph.serialize(format='turtle')
+    #     zipfile_obj.writestr(filename, ttl_data)
+
+    # # Create a ZIP file in memory
+    # zip_buffer = BytesIO()
+    # with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
+    #     add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
+    #     add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
+
+    # # Prepare the ZIP file for downloading
+    # zip_buffer.seek(0)
+    # zip_bytes = zip_buffer.getvalue()
+
+    # st.download_button(label="Download Graphs (SHACL and OWL)",
+    #                    data=zip_bytes,
+    #                    file_name="graphs.zip",
+    #                    mime="application/zip")
