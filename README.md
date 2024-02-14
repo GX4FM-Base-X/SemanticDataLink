@@ -70,6 +70,10 @@ Semantic Data Link is a Streamlit-based web application designed to facilitate t
 4. Install dependencies: `pip install -r requirements.txt`.
 5. Run the Streamlit app: `streamlit run [script_name].py` - here: `streamlit run oca_ui.py`.
 
+## Docker
+
+Please refer to `docker/SemanticDataLink/README.md`
+
 **Important:**
 
 If you want to use a database for storing all files (mongodb) please refer to [docker/mongodb](docker/mongodb). 
