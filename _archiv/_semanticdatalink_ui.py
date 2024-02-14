@@ -3,50 +3,6 @@ from helpers import *
 st.set_page_config(layout="wide")
 
 
-def generate_valid_url(base_url, path):
-    # Trim leading and trailing spaces
-    base_url = base_url.strip()
-    path = path.strip()
-
-    # Encode path to ensure it's safe for URL usage
-    encoded_path = quote_plus(path)
-
-    # Combine the base URL and the encoded path
-    full_url = urljoin(base_url, encoded_path)
-
-    return full_url
-
-
-def contains_number(s):
-    pattern = r"^-?\d+(\.\d+)?$"
-    if s == '':
-        return True
-    else:
-        return bool(re.search(pattern, s))
-
-
-def pattern_test(s, regex):
-    if re.fullmatch(regex, s):
-        return True
-    else:
-        return False
-
-
-def convert_to_number(s):
-    # Regex for matching integers and floating-point numbers
-    int_pattern = r"^-?\d+$"
-    float_pattern = r"^-?\d+\.\d+$"
-
-    # Check if the string is an integer
-    if re.match(int_pattern, s):
-        return int(s), 'int'
-    # Check if the string is a float
-    elif re.match(float_pattern, s):
-        return float(s), 'float'
-    else:
-        raise ValueError(
-            "The string does not represent a valid integer or floating-point number.")
-
 
 # Predefined datatypes for selection
 predefined_datatypes = ["string", "integer", "float", "boolean", "date", "enum", "datetime", "decimal", "double",
@@ -370,7 +326,7 @@ if st.button('Validate LinkML', type='primary'):
             st.session_state.rdf_test_successfull = True
         except Exception as e:
             # Handle exceptions specific to ShaclGenerator
-            st.error(f"An error occurred during SHACL generation: {e}")
+            st.error(f"An error occurred during SHACL generation: {e}") 
             st.session_state.rdf_test_successfull = False
 
         try:
