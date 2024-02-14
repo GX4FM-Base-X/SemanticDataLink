@@ -1,0 +1,9 @@
+venv/
+_archiv/
+catalog/
+linkml/
+docker/
+.DS_Store
+.git
+.gitignore
+README.md
