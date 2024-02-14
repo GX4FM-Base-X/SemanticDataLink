@@ -340,13 +340,13 @@ linkml_document = {
     "name": name,
     "prefixes": {
         "linkml": "https://w3id.org/linkml/",
-        "base-x-core": "https://schema.org",
-        "test": "https://schema.org/bsbdfhdsnd"
+        id: linkml_id
     },
     "imports": "linkml:types",
+    "default_prefix": id,
     "default_range": "string",
     "classes": {
-        "base-x-core": {
+        name: {
             "attributes": dict(pair for d in st.session_state.attributes for pair in d.items())
         }
     },
