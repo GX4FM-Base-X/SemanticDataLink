@@ -17,6 +17,78 @@ import pymongo
 import io
 import glob
 
+import random
+
+# Function to load YAML file
+def find_dict_by_key(dict_list, key):
+    """
+    Find the first dictionary in a list that contains a specified key.
+
+    Args:
+    - dict_list (list): List of dictionaries to search.
+    - key (str): The key to search for.
+
+    Returns:
+    - dict: The first dictionary that contains the key, or None if not found.
+    """
+    for d in dict_list:
+        if key in d:
+            return d
+    return None
+
+def find_subdict_by_value(d, target_key, target_value):
+    """
+    Searches a nested dictionary for a top-level key with a specific value.
+    Returns the sub-dictionary rooted at the matching key-value pair.
+
+    Args:
+    - d (dict): The nested dictionary to search.
+    - target_key (str): The key associated with the target value.
+    - target_value: The target value to search for.
+
+    Returns:
+    - dict: The sub-dictionary starting from the matching key-value pair, or
+            an empty dict if no match is found.
+    """
+    # Check if the current level of the dictionary contains the target_key with the target_value
+    if target_key in d and d[target_key] == target_value:
+        return d
+
+    # Recursively search in nested dictionaries
+    for key, value in d.items():
+        if isinstance(value, dict):
+            result = find_subdict_by_value(value, target_key, target_value)
+            if result:  # If a matching sub-dictionary is found
+                return {key: result}
+
+    return {}  # Return an empty dict if no match is found
+
+
+def is_key_present_in_dict(target_key, d):
+    """
+    Recursively checks if target_key is present in the dictionary d.
+
+    Args:
+    - target_key (str): The key to search for.
+    - d (dict): The dictionary to search in.
+
+    Returns:
+    - bool: True if target_key is found in d, False otherwise.
+    """
+    if target_key in d:
+        return True
+
+    for key, value in d.items():
+        if isinstance(value, dict):  # If the value is another dictionary, search recursively
+            if is_key_present_in_dict(target_key, value):
+                return True
+    return False
+
+
+def load_yaml(file_path):
+    with open(file_path, 'r') as file:
+        return yaml.safe_load(file)
+
 
 def clean_text(text):
     # Remove all punctuation except commas

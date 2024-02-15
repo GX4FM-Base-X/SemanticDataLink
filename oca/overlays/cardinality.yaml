@@ -1,0 +1,9 @@
+attribute:
+  - name: cardinality
+    properties:
+      range: integer
+      multivalued: false
+      identifier: false
+      required: true
+      slot_uri: ''
+      pattern: ''

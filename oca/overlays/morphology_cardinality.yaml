@@ -1,3 +1,0 @@
-morpohology_cardinality:
-  pattern: "^[\\d\\(\\)\\-]+$"
-  slot_uri: schema:cardinality

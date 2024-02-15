@@ -12,6 +12,8 @@ if 'PREFIXES' not in st.session_state:
     st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/"}
 if 'ENUMS' not in st.session_state:
     st.session_state.ENUMS = {}
+if 'SELECT' not in st.session_state:
+    st.session_state.SELECT = []
 
 # Function to add a new attribute
 
@@ -334,6 +336,83 @@ with st.expander(label=':red[**Global Vs. Attribute specific**]'):
         }
     """)
 
+# Sample JSON data for different options
+# pragmatic, semantic, morphologic = allClasses()
+files = glob.glob("oca/overlays/*.yaml")
+# options = {
+#     "Morphologic": [x for x in files if x.split('/')[-1].split('_')[0] == 'morphology'],
+#     "Semantic": [x for x in files if x.split('/')[-1].split('_')[0] == 'semantic'],
+#     "Pragmatic": [x for x in files if x.split('/')[-1].split('_')[0] == 'pragmatic']
+# }
+attributes = {}
+for idx, f in enumerate(files):
+    try:
+        yaml_data = load_yaml(f)
+        # st.write(yaml_data['attribute'][0])
+        attributes[idx] = yaml_data['attribute'][0]
+    except Exception as e:
+        st.write(e)
+
+st.divider()
+
+options = []
+for d in range(len(attributes.keys())):
+    options.append(attributes[d]['name'].upper())
+
+# Multiselect widget to choose options
+overlay_inputs = []
+# if len(options) > 0:
+st.session_state.SELECT = st.multiselect(
+    "Select Options", options, placeholder='Please select Overlays')
+count = 0
+# for option in options_multiselect:
+for d in range(len(attributes.keys())):
+    # Add top-level key to dict
+    user_inputs = {}
+    if attributes[d]['name'].upper() in st.session_state.SELECT:
+        with st.expander(attributes[d]['name'].upper(), expanded=True):
+            props = []
+            for prop, value in attributes[d]['properties'].items():
+                if prop == 'range':
+                    user_input = st.selectbox(
+                        f"{attributes[d]['name']} - Range",
+                        ["string", "integer", "float", "boolean", "date", "enum",
+                            "datetime", "decimal", "double", "HttpsIdentifier", "uri"],
+                        index=["string", "integer", "float", "boolean", "date", "enum",
+                               "datetime", "decimal", "double", "HttpsIdentifier", "uri"].index(value),
+                        key=count
+                    )
+                    props.append((prop, user_input))
+                elif prop in ['multivalued', 'identifier', 'required']:
+                    user_input = st.checkbox(
+                        f"{attributes[d]['name']} - {prop.capitalize()}", value, key=count)
+                    props.append((prop, user_input))
+                elif prop == 'pattern':
+                    user_input = st.text_input(
+                        f"{attributes[d]['name']} - Pattern", value, key=count)
+                    props.append((prop, user_input))
+                elif prop == 'slot_uri':
+                    user_input = st.text_input(
+                        f"{attributes[d]['name']} - Slot URI", value, key=count)
+                    props.append((prop, user_input))
+
+                count += 1
+
+            st.divider()
+            overlay_name = f"OVERLAY_{attributes[d]['name'].upper()}"
+            user_inputs[overlay_name] = {
+                x[0]: x[1] for x in props
+            }
+            overlay_inputs.append(user_inputs)
+
+        st.divider()
+
+# COMBINE ATTRIBUTES AND OVERLAYS
+link_attributes_joined = st.session_state.attributes + overlay_inputs
+linkml_attributes = dict(
+    pair for d in link_attributes_joined for pair in d.items())
+
+
 # Prepare the LinkML document structure
 linkml_document = {
     "id": linkml_id,
@@ -347,7 +426,7 @@ linkml_document = {
     "default_range": "string",
     "classes": {
         name: {
-            "attributes": dict(pair for d in st.session_state.attributes for pair in d.items())
+            "attributes": linkml_attributes
         }
     },
     "enums": st.session_state.ENUMS
@@ -356,39 +435,66 @@ linkml_document = {
 st.empty()
 st.divider()
 st.empty()
+
 on = st.toggle('Generate LinkML Schema')
 if on:
-    # Serialize the document to YAML
-    yaml_str = yaml.dump(linkml_document, sort_keys=False, allow_unicode=True)
+    if name == '':
+        st.error(
+            f':red[Basic Information -- Name] field is mandatory. Please choose a suitable name for the Entity')
+    else:
+        # Serialize the document to YAML
+        yaml_str = yaml.dump(
+            linkml_document, sort_keys=False, allow_unicode=True)
 
-    # # Display the YAML
-    # st.subheader("LinkML Document in YAML Format")
-    # st.text_area("YAML Output", yaml_str, height=300)
+        # # Display the YAML
+        # st.subheader("LinkML Document in YAML Format")
+        # st.text_area("YAML Output", yaml_str, height=300)
 
-    try:
-        # Attempt to generate the SHACL graph
-        shacl_out = shaclgen.ShaclGenerator(
-            str(yaml_str)).as_graph()
-        st.success("SHACL graph generation successful.")
-    except Exception as e:
-        # Handle exceptions specific to ShaclGenerator
-        st.error(f"An error occurred during SHACL generation: {e}")
+        try:
+            # Attempt to generate the SHACL graph
+            shacl_out = shaclgen.ShaclGenerator(
+                str(yaml_str)).as_graph()
+            st.success("SHACL graph generation successful.")
+        except Exception as e:
+            # Handle exceptions specific to ShaclGenerator
+            st.error(f"An error occurred during SHACL generation: {e}")
 
-    try:
-        # Attempt to generate the OWL graph
-        owl_out = owlgen.OwlSchemaGenerator(
-            str(yaml_str)).as_graph()
-        st.success("OWL graph generation successful.")
-    except Exception as e:
-        # Handle exceptions specific to OwlSchemaGenerator
-        st.error(f"An error occurred during OWL generation: {e}")
+        try:
+            # Attempt to generate the OWL graph
+            owl_out = owlgen.OwlSchemaGenerator(
+                str(yaml_str)).as_graph()
+            st.success("OWL graph generation successful.")
+        except Exception as e:
+            # Handle exceptions specific to OwlSchemaGenerator
+            st.error(f"An error occurred during OWL generation: {e}")
 
-    # Print LinkML YAML Schema
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.text_area(
-            "YAML Output", yaml_str, height=300)
-    with col2:
-        st.text_area("OWL", owl_out.serialize(), height=300)
-    with col3:
-        st.text_area("SHACL", shacl_out.serialize(), height=300)
+        # Print LinkML YAML Schema
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.text_area(
+                "YAML Output", yaml_str, height=300)
+        with col2:
+            st.text_area("OWL", owl_out.serialize(), height=300)
+        with col3:
+            st.text_area("SHACL", shacl_out.serialize(), height=300)
+
+    # Function to serialize a graph and add it to a ZIP file
+    def add_graph_to_zip(zipfile_obj, graph, filename):
+        # Serialize the graph to Turtle format
+        ttl_data = graph.serialize(format='turtle')
+        zipfile_obj.writestr(filename, ttl_data)
+
+    # Create a ZIP file in memory
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
+        add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
+        add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
+
+    # Prepare the ZIP file for downloading
+    zip_buffer.seek(0)
+    zip_bytes = zip_buffer.getvalue()
+
+    st.download_button(label="Download Graphs (SHACL and OWL)",
+                       data=zip_bytes,
+                       file_name="graphs.zip",
+                       mime="application/zip")

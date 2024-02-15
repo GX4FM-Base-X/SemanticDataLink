@@ -1,0 +1,6 @@
+attribute:
+  - name: standard
+    properties:
+      group: semantic
+      range: integer
+      multivalued: false

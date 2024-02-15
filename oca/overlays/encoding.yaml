@@ -1,0 +1,10 @@
+attribute:
+  - name: encoding
+    properties:
+      group: morphology
+      range: string
+      multivalued: false
+      identifier: true
+      required: true
+      slot_uri: ''
+      pattern: '^[A-Za-z ]+$'
