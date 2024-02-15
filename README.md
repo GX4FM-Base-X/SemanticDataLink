@@ -2,56 +2,70 @@
 
 SemanticDataLink is an innovative approach to achieve semantic interoperability in diverse data spaces. Our goal is to provide a robust framework that facilitates seamless integration and understanding across various data formats and structures, ensuring that data from different sources can be effectively combined and utilized.
 
-## Overview
+**Overview**
 
 In the era of big data, the ability to integrate information from disparate sources is crucial. SemanticDataLink is designed to address the challenges of semantic interoperability by providing tools and methodologies to link data semantically. Our solution emphasizes on standardization, data harmonization, and the use of advanced semantic technologies to make data more accessible and useful.
 
-## Features
-
-- **Data Standardization**: Enforces common standards for data formatting and structure.
-- **Semantic Mapping**: Utilizes ontologies and schema mappings to establish meaningful connections between different data sets.
-- **Query Expansion**: Enhances data retrieval capabilities through semantically enriched query processes.
-- **API Integration**: Offers a robust API for seamless integration with existing systems.
-- **Data Harmonization**: Aligns disparate data sources for coherent analysis and interpretation.
-
-## Introduction
-
 Semantic Data Link is a Streamlit-based web application designed to facilitate the handling and management of schema-based data structures, particularly focusing on the integration of LinkML (Linked Data Modeling Language) schemas. The application allows users to upload, validate, and augment data schemas using LinkML, and provides a user-friendly interface for adding overlays to these schemas.
 
-## Features
+For more information on the SemanticDataLink approach please refer to [oca/README.md](oca/README.md)
 
-1. **Import Stable Capture Base (SCB):** Users can upload YAML files representing their data schemas. The application validates the YAML content, converts it to JSON, and displays it.
+## Usage
 
-2. **Validation Against LinkML Schema:** Users can validate JSON data against the uploaded LinkML schema to ensure compliance.
+### Semantic Data Link Streamlit UI
 
-3. **Capture Base ID Generation:** The app generates a unique ID for each Capture Base, aiding in tracking and referencing.
+This repository contains the code for a Streamlit-based web application designed to facilitate the creation and management of metadata attributes for datasets.
 
-4. **Add Overlays to SCB:** Users can enhance their schemas with overlays. Overlays are additional data layers that provide extra context or definitions to the base schema. The app supports adding various types of overlays (e.g., Morphologic, Semantic, Pragmatic) and ensures that they are correctly bound to the Capture Base.
+### Code Overview
 
-5. **Database Integration:** The processed Capture Bases and overlays can be saved to a database for persistent storage and management.
+The Python script `SemanticDataLink.py` sets up a Streamlit UI where users can:
 
-6. **Interactive UI:** The application uses Streamlit’s widgets for a dynamic and interactive user experience, making it easy to input, validate, and manage schema data.
+- Add and remove metadata attributes dynamically.
+- Input basic information such as Main Identifier, ID, and Name, which are essential for the creation of LinkML documents.
+- Manage prefixes for the attributes' URIs.
+- Customize each attribute with properties like multivalued, identifier, required, datatype, and more.
+- Provide specific ranges, patterns, and slot URIs for attributes.
+- Define enums and their permissible values, including descriptions and meanings.
+- Generate LinkML schema documents and export them in YAML, SHACL, and OWL formats.
 
-## How to Use
+### Run
 
-1. **Launch the Application:** Run the Streamlit app by executing the provided Python script.
+To run the application locally, follow these steps:
 
-2. **Upload a Schema:** Use the file uploader to import a YAML file representing your data schema. The application will validate and convert it to JSON.
+1. Clone the repository and navigate to the directory containing `SemanticDataLink.py`.
+2. Ensure you have Python and Streamlit installed. For an easy setup you can use our `requirements.txt` file. Simply create a python environment `python3 -m venv venv` activate this environment `source venv/bin/activate` (in root of repository) and install allpackages `pip install -r requirements.txt`.
+3. Run the command: `streamlit run SemanticDataLink.py`.
+4. The web application will open in your default browser.
 
-3. **Validate Data:** Optionally, validate JSON data against the uploaded schema. Input the JSON data and specify the class it should adhere to within the schema.
+#### Using the Streamlit UI
 
-4. **Generate Capture Base ID:** The application will automatically generate an ID for the uploaded schema.
+1. Fill in the "Basic Information" section with the Main Identifier, ID, and Name.
+2. Add or delete prefixes as necessary.
+3. Use the "Add Attribute" and "Delete Last Attribute" buttons to manage your attributes list.
+4. Customize each attribute's properties using the provided fields and checkboxes.
+5. Proceed identically by selection additional overlays.
+6. Once all attributes and overlays are configured, you can generate the LinkML schema by toggling the 'Generate LinkML Schema' switch.
+7. Copy or download the SHACL and OWL Graphs.
 
-5. **Add Overlays:** Enhance your schema with additional overlays. Select from available types and input the necessary data.
+#### Usage with Docker
 
-6. **Review and Save:** Review the final schema with overlays and save it to the database.
+To use the application with Docker, you need to have Docker installed and running on your machine. For more information about docker checkout the foler [/docker](/docker/)
 
-7. **Download or Use Data:** The final augmented schema can be downloaded or directly used within the application for further data operations.
+1. Build the Docker image from the Dockerfile in the repository:
 
-## Overlay Overview / Description
+```bash
+docker build -t semanticdatalink .
+```
 
-**TODO!** 
-[oca/overlays/README.md](oca/overlays/README.md)
+2. Run a container from the image:
+```bash
+docker run --rm -p 8501:8501 --name semanticdatalink  semanticdatalink
+```
+Keep in mind that `--rm` will delete the container after exit. If you want to keep the container simply remove `--rm` from command.
+
+3. Access the application through http://localhost:8501 in your web browser.
+Remember to mount the necessary volumes if you need to access files from your host system in the Streamlit application.
+
 
 ## Requirements
 
