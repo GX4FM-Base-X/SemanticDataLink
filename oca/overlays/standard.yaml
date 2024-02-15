@@ -1,6 +1,8 @@
 attribute:
-  - name: standard
+  - name: Standard
     properties:
-      group: semantic
-      range: integer
+      range: string
+      description: 'The technical or domain-specific standard the dataset conforms to.'
       multivalued: false
+      required: false
+      pattern: '^[A-Za-z0-9\-\_]+$'

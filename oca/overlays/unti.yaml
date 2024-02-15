@@ -1,0 +1,8 @@
+attribute:
+  - name: Unit
+    properties:
+      range: string
+      description: 'The measurement unit used within the dataset for quantitative values.'
+      multivalued: true
+      required: false
+      pattern: '^\w+$'

@@ -1,0 +1,7 @@
+attribute:
+  - name: Information
+    properties:
+      range: string
+      description: 'A summary of the content and context of the dataset.'
+      multivalued: true
+      required: true

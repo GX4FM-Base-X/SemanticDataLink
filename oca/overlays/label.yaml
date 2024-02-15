@@ -1,0 +1,8 @@
+attribute:
+  - name: Label
+    properties:
+      range: string
+      description: 'A human-readable identifier for the dataset or its elements.'
+      multivalued: false
+      required: true
+      pattern: '^.+$'

@@ -1,0 +1,7 @@
+attribute:
+  - name: Dimensionality
+    properties:
+      range: string
+      description: 'Indicates the number of attributes or fields in the dataset (e.g., columns in a table).'
+      multivalued: false
+      required: true

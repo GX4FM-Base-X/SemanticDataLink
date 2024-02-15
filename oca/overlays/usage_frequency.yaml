@@ -1,0 +1,8 @@
+attribute:
+  - name: UsageFrequency
+    properties:
+      range: string
+      description: 'Indicates how often the dataset is typically accessed or used.'
+      multivalued: false
+      required: false
+      pattern: '^(rarely|occasionally|frequently|always)$'

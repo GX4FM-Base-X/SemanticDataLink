@@ -1,9 +1,7 @@
 attribute:
-  - name: cardinality
+  - name: Cardinality
     properties:
-      range: integer
+      range: string
+      description: 'Specifies the number of elements in a dataset, often in the context of relationships between data points.'
       multivalued: false
-      identifier: false
-      required: true
-      slot_uri: ''
-      pattern: ''
+      required: false

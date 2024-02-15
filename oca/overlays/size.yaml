@@ -1,0 +1,8 @@
+attribute:
+  - name: Size
+    properties:
+      range: string
+      description: 'Specifies the total data volume of the dataset, typically in terms of storage space (e.g., MB, GB).'
+      multivalued: false
+      required: true
+      pattern: '^[0-9]+(.[0-9]+)?\s?(KB|MB|GB|TB)$'

@@ -231,6 +231,15 @@ for idx, attribute in enumerate(st.session_state.attributes):
     if slot_uri_select != '' and slot_uri_class != '':
         attribute[attribute_name]['slot_uri'] = f"{slot_uri_select}:{slot_uri_class}"
         st.write(f"Your slot_uri: **{slot_uri_select} : {slot_uri_class}**")
+    # Description
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        description_check = st.checkbox(
+            "Description", value=False, key=f'description_check_{idx}')
+    if description_check:
+        with col2:
+            attribute[attribute_name]['description'] = st.text_input(
+                "Description", key=f'attribute_description_select_{idx}')
     # REGEX Pattern
     col1, col2, col3 = st.columns([1, 2, 2])
     with col1:

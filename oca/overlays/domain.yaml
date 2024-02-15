@@ -1,0 +1,8 @@
+attribute:
+  - name: Domain
+    properties:
+      range: string
+      description: 'The field of study or industry to which the dataset is relevant.'
+      multivalued: false
+      required: true
+      pattern: "[^0-9]"

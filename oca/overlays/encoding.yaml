@@ -1,10 +1,7 @@
 attribute:
-  - name: encoding
+  - name: Encoding
     properties:
-      group: morphology
       range: string
+      description: 'Details the file encoding format (e.g., UTF-8) used in the dataset.'
       multivalued: false
-      identifier: true
-      required: true
-      slot_uri: ''
-      pattern: '^[A-Za-z ]+$'
+      required: false

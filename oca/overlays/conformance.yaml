@@ -1,0 +1,8 @@
+attribute:
+  - name: Conformance
+    properties:
+      range: string
+      description: 'Specifies the degree to which the dataset adheres to a standard or specification.'
+      multivalued: false
+      required: false
+      pattern: '^(none|partial|full)$'
