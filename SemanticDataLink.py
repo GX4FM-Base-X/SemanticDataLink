@@ -3,6 +3,13 @@ import yaml
 from helpers import *
 
 st.set_page_config(layout="wide")
+
+col1, col2 = st.columns([5, 1])
+with col2:
+    # Display a logo
+    logo = ".streamlit/gx4fm.png"  # Update this path to your logo's file location
+    st.image(logo)
+
 st.title('Semantic Data Link')
 
 # Attributes
@@ -297,7 +304,7 @@ st.markdown('''
                 ```
     ''')
 
-with st.expander(label=':red[**Global Vs. Attribute specific**]'):
+with st.expander(label=':blue[**Global Vs. Attribute specific**]'):
     st.markdown("""
         Many Overlays contain entities that is related to the whole overlay as well as entities that are dataset-attribute specific.
         Keep in mind that only the data [items specified for the python programming language are valid](https://www.geeksforgeeks.org/python-data-types/)! These are:

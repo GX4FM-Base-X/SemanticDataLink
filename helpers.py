@@ -19,7 +19,33 @@ import glob
 
 import random
 
+
+def add_logo():
+    st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(./.streamlit/gx4fm.png);
+                background-repeat: no-repeat;
+                padding-top: 120px;
+                background-position: 20px 20px;
+            }
+            [data-testid="stSidebarNav"]::before {
+                content: "My Company Name";
+                margin-left: 20px;
+                margin-top: 20px;
+                font-size: 30px;
+                position: relative;
+                top: 100px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 # Function to load YAML file
+
+
 def find_dict_by_key(dict_list, key):
     """
     Find the first dictionary in a list that contains a specified key.
@@ -35,6 +61,7 @@ def find_dict_by_key(dict_list, key):
         if key in d:
             return d
     return None
+
 
 def find_subdict_by_value(d, target_key, target_value):
     """
