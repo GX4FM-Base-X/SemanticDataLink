@@ -37,14 +37,14 @@ def delete_attribute():
 # Basic info
 st.subheader("Basic Information")
 main_prefix = st.text_input(
-    "Main Identifier", value="https://base-x-ecosystem.com/")
-id = st.text_input("ID", value="base-x-core")
+    "Main Identifier (URI Base)", value="https://base-x-ecosystem.com/")
+id = st.text_input("Your Name / Organization (ID)", placeholder="base-x-core")
 if id == '':
     st.error(
         f':red[Basic Information -- ID] field is mandatory. Please choose a suitable ID for the Entity')
 linkml_id = generate_valid_url(main_prefix, id)
 st.write(f"LinkML ID *(Main Identifier + ID)*: {linkml_id}")
-name = st.text_input("Name")
+name = st.text_input("Name for Dataset / Service / Application")
 if name == '':
     st.error(
         f':red[Basic Information -- Name] field is mandatory. Please choose a suitable name for the Entity')
