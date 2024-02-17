@@ -1,6 +1,8 @@
 attribute:
-  - name: Encoding
+  - name: encoding
     properties:
+      title: 'encoding'
+      slot_uri: sdl:encoding
       range: string
       description: 'Details the file encoding format (e.g., UTF-8) used in the dataset.'
       multivalued: false

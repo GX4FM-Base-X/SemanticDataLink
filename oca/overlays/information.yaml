@@ -1,6 +1,8 @@
 attribute:
-  - name: Information
+  - name: information
     properties:
+      title: 'information'
+      slot_uri: sdl:information
       range: string
       description: 'A summary of the content and context of the dataset.'
       multivalued: true

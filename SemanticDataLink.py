@@ -16,7 +16,7 @@ st.title('Semantic Data Link')
 if 'attributes' not in st.session_state:
     st.session_state.attributes = []
 if 'PREFIXES' not in st.session_state:
-    st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/"}
+    st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/", "sdl": "https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#"}
 if 'ENUMS' not in st.session_state:
     st.session_state.ENUMS = {}
 if 'SELECT' not in st.session_state:
@@ -106,6 +106,7 @@ for idx, attribute in enumerate(st.session_state.attributes):
 
     attribute[attribute_name] = {}
 
+    attribute[attribute_name]['title'] = attribute_name
     attribute[attribute_name]['multivalued'] = st.checkbox(
         "Multivalued", value=False, key=f'attribute_multivalued_{idx}')
     attribute[attribute_name]['identifier'] = st.checkbox(
@@ -407,15 +408,16 @@ for d in range(len(attributes.keys())):
                     user_input = st.text_input(
                         f"{attributes[d]['name']} - Pattern", value, key=count)
                     props.append((prop, user_input))
-                elif prop == 'slot_uri':
-                    user_input = st.text_input(
-                        f"{attributes[d]['name']} - Slot URI", value, key=count)
-                    props.append((prop, user_input))
-
+                #elif prop == 'slot_uri':
+                #    user_input = st.text_input(
+                #        f"{attributes[d]['name']} - Slot URI", value, key=count)
+                #    props.append((prop, user_input))
+                elif prop in ['slot_uri', 'description', 'title']:
+                    props.append((prop, value))
                 count += 1
 
             st.divider()
-            overlay_name = f"OVERLAY_{attributes[d]['name'].upper()}"
+            overlay_name = f"overlay_{attributes[d]['name']}"
             user_inputs[overlay_name] = {
                 x[0]: x[1] for x in props
             }

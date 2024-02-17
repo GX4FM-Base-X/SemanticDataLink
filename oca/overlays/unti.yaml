@@ -1,6 +1,8 @@
 attribute:
-  - name: Unit
+  - name: unit
     properties:
+      title: 'unit'
+      slot_uri: sdl:unit
       range: string
       description: 'The measurement unit used within the dataset for quantitative values.'
       multivalued: true

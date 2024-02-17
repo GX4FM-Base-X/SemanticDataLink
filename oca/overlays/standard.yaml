@@ -1,6 +1,8 @@
 attribute:
-  - name: Standard
+  - name: standard
     properties:
+      title: 'standard'
+      slot_uri: sdl:standard
       range: string
       description: 'The technical or domain-specific standard the dataset conforms to.'
       multivalued: false

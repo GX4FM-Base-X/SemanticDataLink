@@ -1,6 +1,8 @@
 attribute:
-  - name: Size
+  - name: size
     properties:
+      title: 'size'
+      slot_uri: sdl:size
       range: string
       description: 'Specifies the total data volume of the dataset, typically in terms of storage space (e.g., MB, GB).'
       multivalued: false

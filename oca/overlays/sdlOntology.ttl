@@ -1,0 +1,93 @@
+@prefix sdl: <https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sdl: a owl:Ontology ;
+    rdfs:label "Semantic Data Link" .
+
+sdl:cardinality
+    a owl:DatatypeProperty ;
+    rdfs:label "cardinality" ;
+    dct:description "Specifies the number of elements in a dataset, often in the context of relationships between data points." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:conformance
+    a owl:DatatypeProperty ;
+    rdfs:label "conformance" ;
+    dct:description "Specifies the degree to which the dataset adheres to a standard or specification." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:dimensionality
+    a owl:DatatypeProperty ;
+    rdfs:label "dimensionality" ;
+    dct:description "Indicates the number of attributes or fields in the dataset (e.g., columns in a table)." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:domain
+    a owl:DatatypeProperty ;
+    rdfs:label "domain" ;
+    dct:description "The field of study or industry to which the dataset is relevant." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:encoding
+    a owl:DatatypeProperty ;
+    rdfs:label "encoding" ;
+    dct:description "Details the file encoding format (e.g., UTF-8) used in the dataset." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:information
+    a owl:DatatypeProperty ;
+    rdfs:label "information" ;
+    dct:description "A summary of the content and context of the dataset." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:keyword
+    a owl:DatatypeProperty ;
+    rdfs:label "keyword" ;
+    dct:description "One of potentially several terms that summarize the main topics or themes of the dataset." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:label
+    a owl:DatatypeProperty ;
+    rdfs:label "label" ;
+    dct:description "A human-readable identifier for the dataset or its elements." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:size
+    a owl:DatatypeProperty ;
+    rdfs:label "size" ;
+    dct:description "Specifies the total data volume of the dataset, typically in terms of storage space (e.g., MB, GB)." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:standard
+    a owl:DatatypeProperty ;
+    rdfs:label "standard" ;
+    dct:description "The technical or domain-specific standard the dataset conforms to." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:unit
+    a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    dct:description "The measurement unit used within the dataset for quantitative values." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .
+
+sdl:usageFrequency
+    a owl:DatatypeProperty ;
+    rdfs:label "usage frequency" ;
+    dct:description "Indicates how often the dataset is typically accessed or used." ;
+    rdfs:domain owl:Class ;
+    rdfs:range xsd:string .

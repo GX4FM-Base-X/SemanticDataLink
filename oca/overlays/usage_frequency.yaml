@@ -1,6 +1,8 @@
 attribute:
-  - name: UsageFrequency
+  - name: usageFrequency
     properties:
+      title: 'usage frequency'
+      slot_uri: sdl:usageFrequency
       range: string
       description: 'Indicates how often the dataset is typically accessed or used.'
       multivalued: false

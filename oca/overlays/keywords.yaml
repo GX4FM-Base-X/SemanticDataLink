@@ -1,7 +1,0 @@
-attribute:
-  - name: Keywords
-    properties:
-      range: string
-      description: 'A set of terms that summarize the main topics or themes of the dataset.'
-      multivalued: true
-      required: false

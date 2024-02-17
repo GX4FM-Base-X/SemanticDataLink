@@ -1,6 +1,8 @@
 attribute:
-  - name: Domain
+  - name: domain
     properties:
+      title: 'domain'
+      slot_uri: sdl:domain
       range: string
       description: 'The field of study or industry to which the dataset is relevant.'
       multivalued: false

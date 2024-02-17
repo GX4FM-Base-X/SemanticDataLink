@@ -1,0 +1,9 @@
+attribute:
+  - name: keyword
+    properties:
+      title: 'keyword'
+      slot_uri: sdl:keyword
+      range: string
+      description: 'One of potentially several terms that summarize the main topics or themes of the dataset.'
+      multivalued: true
+      required: false

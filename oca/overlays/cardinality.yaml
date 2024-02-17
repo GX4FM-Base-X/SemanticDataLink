@@ -1,6 +1,8 @@
 attribute:
-  - name: Cardinality
+  - name: cardinality
     properties:
+      title: 'cardinality'
+      slot_uri: sdl:cardinality
       range: string
       description: 'Specifies the number of elements in a dataset, often in the context of relationships between data points.'
       multivalued: false

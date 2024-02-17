@@ -1,6 +1,8 @@
 attribute:
-  - name: Conformance
+  - name: conformance
     properties:
+      title: 'conformance'
+      slot_uri: sdl:conformance
       range: string
       description: 'Specifies the degree to which the dataset adheres to a standard or specification.'
       multivalued: false

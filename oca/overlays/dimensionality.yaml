@@ -1,6 +1,8 @@
 attribute:
-  - name: Dimensionality
+  - name: dimensionality
     properties:
+      title: 'dimensionality'
+      slot_uri: sdl:dimensionality
       range: string
       description: 'Indicates the number of attributes or fields in the dataset (e.g., columns in a table).'
       multivalued: false
