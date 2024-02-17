@@ -423,31 +423,6 @@ for d in range(len(attributes.keys())):
 
         st.divider()
 
-# COMBINE ATTRIBUTES AND OVERLAYS
-link_attributes_joined = st.session_state.attributes + overlay_inputs
-linkml_attributes = dict(
-    pair for d in link_attributes_joined for pair in d.items())
-
-
-# Prepare the LinkML document structure
-linkml_document = {
-    "id": linkml_id,
-    "name": name,
-    "prefixes": {
-        "linkml": "https://w3id.org/linkml/",
-        id: linkml_id
-    },
-    "imports": "linkml:types",
-    "default_prefix": id,
-    "default_range": "string",
-    "classes": {
-        name: {
-            "attributes": linkml_attributes
-        }
-    },
-    "enums": st.session_state.ENUMS
-}
-
 st.empty()
 st.divider()
 st.empty()
@@ -458,6 +433,28 @@ if on:
         st.error(
             f':red[Basic Information -- Name] field is mandatory. Please choose a suitable name for the Entity')
     else:
+        st.session_state.PREFIXES[id] = linkml_id
+        # COMBINE ATTRIBUTES AND OVERLAYS
+        link_attributes_joined = st.session_state.attributes + overlay_inputs
+        linkml_attributes = dict(
+            pair for d in link_attributes_joined for pair in d.items())
+
+        # Prepare the LinkML document structure
+        linkml_document = {
+            "id": linkml_id,
+            "name": name,
+            "prefixes": st.session_state.PREFIXES,
+            "imports": "linkml:types",
+            "default_prefix": id,
+            "default_range": "string",
+            "classes": {
+                name: {
+                    "attributes": linkml_attributes
+                }
+            },
+            "enums": st.session_state.ENUMS
+        }
+
         # Serialize the document to YAML
         yaml_str = yaml.dump(
             linkml_document, sort_keys=False, allow_unicode=True)
