@@ -412,7 +412,7 @@ for d in range(len(attributes.keys())):
                 #    user_input = st.text_input(
                 #        f"{attributes[d]['name']} - Slot URI", value, key=count)
                 #    props.append((prop, user_input))
-                elif prop in ['slot_uri', 'description', 'title']:
+                elif prop in ['slot_uri', 'title']:
                     props.append((prop, value))
                 count += 1
 
@@ -468,7 +468,7 @@ if on:
         try:
             # Attempt to generate the SHACL graph
             shacl_out = shaclgen.ShaclGenerator(
-                str(yaml_str)).as_graph()
+                yaml_str).as_graph()
             st.success("SHACL graph generation successful.")
         except Exception as e:
             # Handle exceptions specific to ShaclGenerator
@@ -477,7 +477,7 @@ if on:
         try:
             # Attempt to generate the OWL graph
             owl_out = owlgen.OwlSchemaGenerator(
-                str(yaml_str)).as_graph()
+                yaml_str).as_graph()
             st.success("OWL graph generation successful.")
         except Exception as e:
             # Handle exceptions specific to OwlSchemaGenerator
