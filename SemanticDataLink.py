@@ -16,7 +16,8 @@ st.title('Semantic Data Link')
 if 'attributes' not in st.session_state:
     st.session_state.attributes = []
 if 'PREFIXES' not in st.session_state:
-    st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/", "sdl": "https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#"}
+    st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/",
+                                 "sdl": "https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#"}
 if 'ENUMS' not in st.session_state:
     st.session_state.ENUMS = {}
 if 'SELECT' not in st.session_state:
@@ -38,11 +39,12 @@ def delete_attribute():
 st.subheader("Basic Information")
 main_prefix = st.text_input(
     "Main Identifier (URI Base)", value="https://base-x-ecosystem.com/")
-id = st.text_input("Your Name / Organization (ID)", placeholder="base-x-core")
-if id == '':
+organization_id = st.text_input(
+    "Your Name / Organization (ID)", placeholder="base-x-core")
+if organization_id == '':
     st.error(
         f':red[Basic Information -- ID] field is mandatory. Please choose a suitable ID for the Entity')
-linkml_id = generate_valid_url(main_prefix, id)
+linkml_id = generate_valid_url(main_prefix, organization_id)
 st.write(f"LinkML ID *(Main Identifier + ID)*: {linkml_id}")
 name = st.text_input("Name for Dataset / Service / Application")
 if name == '':
@@ -226,19 +228,58 @@ for idx, attribute in enumerate(st.session_state.attributes):
                     st.error(
                         f"Please enter a valid number or leave blank")
     # Slot URIs
-    col1, col2 = st.columns(2)
-    with col1:
-        slot_uri_select = st.selectbox(
-            "Slot URIs:", [''] + prefixes, key=f'attribute_slut_uri_selector_{idx}')
-    with col2:
-        slot_uri_class = st.text_input(
-            "URI Class", key=f'attribute_slot_uri_class_{idx}')
-        if slot_uri_select != '' and slot_uri_class == '':
+    # Devide Page
+    st.divider()
+    slot_uri_check = st.checkbox(
+        "Add URI Manually", value=False, key=f'attribute_slot_uri_manual_{idx}')
+    if slot_uri_check:
+        col1, col2 = st.columns(2)
+        with col1:
+            slot_uri_select = st.selectbox(
+                "Slot URIs:", [''] + prefixes, key=f'attribute_slut_uri_selector_{idx}')
+        with col2:
+            slot_uri_class = st.text_input(
+                "URI Class", key=f'attribute_slot_uri_class_{idx}')
+            if slot_uri_select != '' and slot_uri_class == '':
+                st.error(
+                    f"If you select a slot_uri you need to pass a target class")
+        if slot_uri_select != '' and slot_uri_class != '':
+            attribute[attribute_name]['slot_uri'] = f"{slot_uri_select}:{slot_uri_class}"
+            st.write(
+                f"Your slot_uri: **{slot_uri_select} : {slot_uri_class}**")
+    else:
+
+        # Search Results: Wikidata and LOV
+        st.markdown('###### LOV (Linked Open Vocabluaries) Search Results')
+        status, lov_attributes = query_lov(attribute_name)
+        # Print DataFrame
+        if status != False:
+            st.dataframe(lov_attributes)
+            # Selector
+            lov_entity_selection = st.multiselect(
+                'Which URI describes your attribute best? ONLY CHOOSE ONE ENTITY!',
+                lov_attributes['prefixedName'].values,
+                lov_attributes['prefixedName'].values[0]
+            )
+            st.markdown('###### Add URI to attribute:')
+
+            if len(lov_entity_selection) == 1:
+                attribute[attribute_name]['slot_uri'] = lov_entity_selection[0]
+                if lov_entity_selection[0].split(':')[0] not in st.session_state.PREFIXES.keys():
+                    st.error(
+                        f"{lov_entity_selection[0].split(':')[0]} is not in PREFIXES! Please add, otherwise it can lead to errors.")
+                    if st.button(f"Add **{lov_entity_selection[0].split(':')[0]}** to PREFIXES?", type='primary'):
+                        st.session_state.PREFIXES[lov_entity_selection[0].split(
+                            ':')[0]] = lov_attributes.loc[lov_attributes['prefixedName'] == lov_entity_selection[0], 'uri'].iloc[0].split('#')[0]
+                        st.rerun()
+            else:
+                st.error(
+                    f'Select exactly ONE entity! Not {len(lov_entity_selection)}')
+        else:
             st.error(
-                f"If you select a slot_uri you need to pass a target class")
-    if slot_uri_select != '' and slot_uri_class != '':
-        attribute[attribute_name]['slot_uri'] = f"{slot_uri_select}:{slot_uri_class}"
-        st.write(f"Your slot_uri: **{slot_uri_select} : {slot_uri_class}**")
+                f'No LOV Attributes found four {attribute_name}. Please select URI manually')
+
+    st.divider()
     # Description
     col1, col2 = st.columns([1, 3])
     with col1:
@@ -408,7 +449,7 @@ for d in range(len(attributes.keys())):
                     user_input = st.text_input(
                         f"{attributes[d]['name']} - Pattern", value, key=count)
                     props.append((prop, user_input))
-                #elif prop == 'slot_uri':
+                # elif prop == 'slot_uri':
                 #    user_input = st.text_input(
                 #        f"{attributes[d]['name']} - Slot URI", value, key=count)
                 #    props.append((prop, user_input))
@@ -431,11 +472,11 @@ st.empty()
 
 on = st.toggle('Generate LinkML Schema')
 if on:
-    if name == '':
+    if name == '' or organization_id == '':
         st.error(
             f':red[Basic Information -- Name] field is mandatory. Please choose a suitable name for the Entity')
     else:
-        st.session_state.PREFIXES[id] = linkml_id
+        st.session_state.PREFIXES[organization_id] = linkml_id
         # COMBINE ATTRIBUTES AND OVERLAYS
         link_attributes_joined = st.session_state.attributes + overlay_inputs
         linkml_attributes = dict(
@@ -447,7 +488,7 @@ if on:
             "name": name,
             "prefixes": st.session_state.PREFIXES,
             "imports": "linkml:types",
-            "default_prefix": id,
+            "default_prefix": organization_id,
             "default_range": "string",
             "classes": {
                 name: {
@@ -493,23 +534,23 @@ if on:
         with col3:
             st.text_area("SHACL", shacl_out.serialize(), height=300)
 
-    # Function to serialize a graph and add it to a ZIP file
-    def add_graph_to_zip(zipfile_obj, graph, filename):
-        # Serialize the graph to Turtle format
-        ttl_data = graph.serialize(format='turtle')
-        zipfile_obj.writestr(filename, ttl_data)
+        # Function to serialize a graph and add it to a ZIP file
+        def add_graph_to_zip(zipfile_obj, graph, filename):
+            # Serialize the graph to Turtle format
+            ttl_data = graph.serialize(format='turtle')
+            zipfile_obj.writestr(filename, ttl_data)
 
-    # Create a ZIP file in memory
-    zip_buffer = BytesIO()
-    with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
-        add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
-        add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
+        # Create a ZIP file in memory
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
+            add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
+            add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
 
-    # Prepare the ZIP file for downloading
-    zip_buffer.seek(0)
-    zip_bytes = zip_buffer.getvalue()
+        # Prepare the ZIP file for downloading
+        zip_buffer.seek(0)
+        zip_bytes = zip_buffer.getvalue()
 
-    st.download_button(label="Download Graphs (SHACL and OWL)",
-                       data=zip_bytes,
-                       file_name="graphs.zip",
-                       mime="application/zip")
+        st.download_button(label="Download Graphs (SHACL and OWL)",
+                           data=zip_bytes,
+                           file_name="graphs.zip",
+                           mime="application/zip")

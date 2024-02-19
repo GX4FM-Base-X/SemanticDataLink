@@ -2,6 +2,8 @@ import hashlib
 from pymongo import MongoClient
 from urllib.parse import quote_plus
 import json
+import requests
+import pandas as pd
 
 import streamlit as st
 import yaml
@@ -18,6 +20,9 @@ import io
 import glob
 
 import random
+
+if 'lov_entities' not in st.session_state:
+    st.session_state.lov_entities = pd.DataFrame()
 
 
 def add_logo():
@@ -334,6 +339,25 @@ def parse_linkml(main_prefix, dataset_id, dataset_name, attributes, prefixes):
 
     return linkml_schema
 
+################################
+# Search LOV and Wikidata
+
+
+def query_lov(query):
+    # Possible types: [class, propery, datatype, instance]
+    payload = {'q': query}
+    try:
+        r = requests.get(
+            'https://lov.linkeddata.es/dataset/lov/api/v2/term/search', params=payload)
+        lov = r.json()
+        df = pd.DataFrame(lov['results'])
+        df = df[['prefixedName', 'uri', 'score', 'type']]
+        df['uri'] = df['uri'].apply(lambda x: x[0])
+        df['prefixedName'] = df['prefixedName'].apply(lambda x: x[0])
+        return True, df
+        # return r.json()
+    except:
+        return False, None
 
 # [
 #   {
