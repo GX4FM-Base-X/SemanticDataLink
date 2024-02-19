@@ -45,6 +45,7 @@ if organization_id == '':
     st.error(
         f':red[Basic Information -- ID] field is mandatory. Please choose a suitable ID for the Entity')
 linkml_id = generate_valid_url(main_prefix, organization_id)
+linkml_id += "/"
 st.write(f"LinkML ID *(Main Identifier + ID)*: {linkml_id}")
 name = st.text_input("Name for Dataset / Service / Application")
 if name == '':
@@ -270,7 +271,7 @@ for idx, attribute in enumerate(st.session_state.attributes):
                         f"{lov_entity_selection[0].split(':')[0]} is not in PREFIXES! Please add, otherwise it can lead to errors.")
                     if st.button(f"Add **{lov_entity_selection[0].split(':')[0]}** to PREFIXES?", type='primary'):
                         st.session_state.PREFIXES[lov_entity_selection[0].split(
-                            ':')[0]] = lov_attributes.loc[lov_attributes['prefixedName'] == lov_entity_selection[0], 'uri'].iloc[0].split('#')[0]
+                            ':')[0]] = f"{lov_attributes.loc[lov_attributes['prefixedName'] == lov_entity_selection[0], 'uri'].iloc[0].split('#')[0]}#"
                         st.rerun()
             else:
                 st.error(
