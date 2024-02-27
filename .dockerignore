@@ -1,7 +1,8 @@
 venv/
 _archiv/
 catalog/
-linkml/
+linkml/json/
+linkml/yaml/
 docker/
 .DS_Store
 .git
