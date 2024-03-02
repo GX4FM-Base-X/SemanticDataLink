@@ -541,9 +541,14 @@ if on:
             ttl_data = graph.serialize(format='turtle')
             zipfile_obj.writestr(filename, ttl_data)
 
+        def add_yaml_to_zip(zipfile_obj, yaml_str, filename):
+            # Serialize the graph to Turtle format
+            zipfile_obj.writestr(filename, yaml_str)
+
         # Create a ZIP file in memory
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, 'a', zipfile.ZIP_DEFLATED, False) as zip_file:
+            add_yaml_to_zip(zip_file, yaml_str, 'schema.yaml')
             add_graph_to_zip(zip_file, shacl_out, 'shacl_graph.ttl')
             add_graph_to_zip(zip_file, owl_out, 'owl_graph.ttl')
 

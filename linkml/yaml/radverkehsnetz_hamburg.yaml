@@ -1,0 +1,131 @@
+id: https://base-x-ecosystem.com/LGV/
+name: RadverkehrsnetzHamburg
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdl: https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#
+  dbpedia-owl: http://dbpedia.org/ontology/status#
+  LGV: https://base-x-ecosystem.com/LGV/
+imports: linkml:types
+default_prefix: LGV
+default_range: string
+classes:
+  RadverkehrsnetzHamburg:
+    attributes:
+      Status:
+        title: Status
+        multivalued: false
+        identifier: false
+        required: true
+        range: STATUS_ENUM
+        slot_uri: dbpedia-owl:status
+      Straßenname:
+        title: Straßenname
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+      Art:
+        title: Art
+        multivalued: false
+        identifier: false
+        required: true
+        range: ART_ENUM
+      Klasse:
+        title: Klasse
+        multivalued: false
+        identifier: false
+        required: true
+        range: KLASSE_ENUM
+        slot_uri: dbpedia-owl:class
+      Zeitliche Beschränkung:
+        title: Zeitliche Beschränkung
+        multivalued: false
+        identifier: false
+        required: true
+        range: boolean
+      Benutzungspflicht:
+        title: Benutzungspflicht
+        multivalued: false
+        identifier: false
+        required: true
+        range: boolean
+      Fahrtrichtung:
+        title: Fahrtrichtung
+        multivalued: false
+        identifier: false
+        required: true
+        range: FAHRTRICHTUNG_ENUM
+      Oberfläche:
+        title: Oberfläche
+        multivalued: false
+        identifier: false
+        required: true
+        range: OBERFLÄCHE_ENUM
+        slot_uri: dbpedia-owl:surfaceArea
+      Breite:
+        title: Breite
+        multivalued: false
+        identifier: false
+        required: true
+        range: float
+        slot_uri: dbpedia-owl:width
+      Hindernis:
+        title: Hindernis
+        multivalued: false
+        identifier: false
+        required: true
+        range: HINDERNIS_ENUM
+      overlay_domain:
+        title: domain
+        slot_uri: sdl:domain
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_information:
+        title: information
+        slot_uri: sdl:information
+        range: string
+        multivalued: false
+        required: true
+enums:
+  STATUS_ENUM:
+    permissible_values:
+      Betrieb: {}
+      TemporäreAnlage: {}
+  ART_ENUM:
+    permissible_values:
+      GetrennterGehRadweg: {}
+      GemeinsamerGehRadweg: {}
+      Radfahrstreifen: {}
+      Schutzstreifen: {}
+      StraßemitMischverkehrbis30kmh: {}
+      Fußgängerzone: {}
+  KLASSE_ENUM:
+    permissible_values:
+      Radweg: {}
+      Radfahrstreifen: {}
+      Schutzstreifen: {}
+      Fahrradstraße: {}
+      WegeinGrünanlagen: {}
+      StraßemitMischverkehr: {}
+      Schiebestrecke: {}
+      Sonstige: {}
+  FAHRTRICHTUNG_ENUM:
+    permissible_values:
+      inGeometrieRichtung: {}
+      inbeideRichtungen: {}
+  OBERFLÄCHE_ENUM:
+    permissible_values:
+      bituminöseDecke: {}
+      wassergebundeneDecke: {}
+      Kunststein: {}
+      Naturstein: {}
+  HINDERNIS_ENUM:
+    permissible_values:
+      Durchfahrbarkeitgegeben: {}
+      Umfahrungmöglich: {}
+  NIVEAU_ENUM:
+    permissible_values:
+      bodengleich: {}
+      Tunnel: {}

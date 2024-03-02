@@ -3,3 +3,4 @@ venv/
 __pycache__/oca_overlays.cpython-311.pyc
 __pycache__/helpers.cpython-311.pyc
 tempCodeRunnerFile.py
+aws/base-x.pem

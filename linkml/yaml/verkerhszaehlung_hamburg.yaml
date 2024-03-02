@@ -1,0 +1,118 @@
+id: https://base-x-ecosystem.com/dlr-ki/
+name: Verkehrszählstellen_Hamburg
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdl: https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#
+  wlo: http://purl.org/ontology/wo/name#
+  mv: http://schema.mobivoc.org/id#
+  swpo: http://sw-portal.deri.org/ontologies/swportal#
+  geom: http://data.ign.fr/def/geometrie#
+  dlr-ki: https://base-x-ecosystem.com/dlr-ki/
+imports: linkml:types
+default_prefix: dlr-ki
+default_range: string
+classes:
+  Verkehrszählstellen_Hamburg:
+    attributes:
+      bezeichnung:
+        title: bezeichnung
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+        slot_uri: dbpedia-owl:inchi
+      name:
+        title: name
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+        slot_uri: wlo:name
+        description: Name of the selected pedestrian count location
+      id:
+        title: id
+        multivalued: false
+        identifier: false
+        required: false
+        range: string
+        slot_uri: mv:id
+        description: Identifier of count location
+      last_count:
+        title: last_count
+        multivalued: false
+        identifier: false
+        required: false
+        range: datetime
+        description: Point in time of last count
+      geom:
+        title: geom
+        multivalued: false
+        identifier: false
+        required: false
+        range: string
+        slot_uri: ngeo:geometry
+      position:
+        title: position
+        multivalued: false
+        identifier: false
+        required: false
+        range: string
+        slot_uri: dbpedia-owl:position
+      location:
+        title: location
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+        slot_uri: swpo:hasLocation
+      CRS:
+        title: CRS
+        multivalued: false
+        identifier: false
+        required: false
+        range: CRS_ENUM
+        slot_uri: geom:crs
+        description: EPSG:4326, on the other hand, is essentially an identifier for
+          WGS84. In simple terms, 4326 is the code that the European Petroleum Survey
+          Group (EPSG) assigned to WGS84.
+      overlay_domain:
+        title: domain
+        slot_uri: sdl:domain
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_usageFrequency:
+        title: usage frequency
+        slot_uri: sdl:usageFrequency
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_information:
+        title: information
+        slot_uri: sdl:information
+        range: string
+        multivalued: false
+        required: true
+      overlay_standard:
+        title: standard
+        slot_uri: sdl:standard
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_label:
+        title: label
+        slot_uri: sdl:label
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+enums:
+  CRS_ENUM:
+    permissible_values:
+      EPSG4326:
+        description: EPSG:4326, on the other hand, is essentially an identifier for
+          WGS84. In simple terms, 4326 is the code that the European Petroleum Survey
+          Group (EPSG) assigned to WGS84.
