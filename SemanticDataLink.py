@@ -232,15 +232,15 @@ for idx, attribute in enumerate(st.session_state.attributes):
     # Devide Page
     st.divider()
     slot_uri_check = st.checkbox(
-        "Add URI Manually", value=False, key=f'attribute_slot_uri_manual_{idx}')
+        "Add URI Manually", value=True, key=f'attribute_slot_uri_manual_{idx}')
     if slot_uri_check:
         col1, col2 = st.columns(2)
         with col1:
             slot_uri_select = st.selectbox(
-                "Slot URIs:", [''] + prefixes, key=f'attribute_slut_uri_selector_{idx}')
+                "Slot URIs:", [organization_id] + prefixes, key=f'attribute_slut_uri_selector_{idx}')
         with col2:
             slot_uri_class = st.text_input(
-                "URI Class", key=f'attribute_slot_uri_class_{idx}')
+                "URI Class", value=attribute_name, key=f'attribute_slot_uri_class_{idx}')
             if slot_uri_select != '' and slot_uri_class == '':
                 st.error(
                     f"If you select a slot_uri you need to pass a target class")
@@ -249,7 +249,6 @@ for idx, attribute in enumerate(st.session_state.attributes):
             st.write(
                 f"Your slot_uri: **{slot_uri_select} : {slot_uri_class}**")
     else:
-
         # Search Results: Wikidata and LOV
         st.markdown('###### LOV (Linked Open Vocabluaries) Search Results')
         status, lov_attributes = query_lov(attribute_name)
@@ -259,13 +258,10 @@ for idx, attribute in enumerate(st.session_state.attributes):
             # Selector
             lov_entity_selection = st.multiselect(
                 'Which URI describes your attribute best? ONLY CHOOSE ONE ENTITY!',
-                lov_attributes['prefixedName'].values,
-                lov_attributes['prefixedName'].values[0]
+                lov_attributes['prefixedName'].values
             )
-            st.markdown('###### Add URI to attribute:')
 
             if len(lov_entity_selection) == 1:
-                attribute[attribute_name]['slot_uri'] = lov_entity_selection[0]
                 if lov_entity_selection[0].split(':')[0] not in st.session_state.PREFIXES.keys():
                     st.error(
                         f"{lov_entity_selection[0].split(':')[0]} is not in PREFIXES! Please add, otherwise it can lead to errors.")
@@ -273,6 +269,7 @@ for idx, attribute in enumerate(st.session_state.attributes):
                         st.session_state.PREFIXES[lov_entity_selection[0].split(
                             ':')[0]] = f"{lov_attributes.loc[lov_attributes['prefixedName'] == lov_entity_selection[0], 'uri'].iloc[0].split('#')[0]}#"
                         st.rerun()
+                attribute[attribute_name]['slot_uri'] = lov_entity_selection[0]
             else:
                 st.error(
                     f'Select exactly ONE entity! Not {len(lov_entity_selection)}')
