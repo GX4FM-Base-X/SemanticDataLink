@@ -1,0 +1,78 @@
+id: https://base-x-ecosystem.com/EBL/
+name: E-BikeLadestationenBerlin
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdl: https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#
+  dbpedia-owl: http://dbpedia.org/ontology/status#
+  EBL: https://base-x-ecosystem.com/EBL/
+imports: linkml:types
+default_prefix: EBL
+default_range: string
+classes:
+  E-BikeLadestationenBerlin:
+    attributes:
+      Status:
+        title: Status
+        multivalued: false
+        identifier: false
+        required: true
+        range: STATUS_ENUM
+        slot_uri: dbpedia-owl:status
+      Standort:
+        title: Standort
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+      Zugänglichkeit:
+        title: Zugänglichkeit
+        multivalued: false
+        identifier: false
+        required: true
+        range: ZUGÄNGLICHKEIT_ENUM
+      Ladekabeltyp:
+        title: Ladekabeltyp
+        multivalued: false
+        identifier: false
+        required: true
+        range: LADEKABELTYP_ENUM
+      Öffnungszeiten:
+        title: Öffnungszeiten
+        multivalued: false
+        identifier: false
+        required: true
+        range: boolean
+      Kapazität:
+        title: Kapazität
+        multivalued: false
+        identifier: false
+        required: true
+        range: integer
+      overlay_domain:
+        title: domain
+        slot_uri: sdl:domain
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_information:
+        title: information
+        slot_uri: sdl:information
+        range: string
+        multivalued: false
+        required: true
+enums:
+  STATUS_ENUM:
+    permissible_values:
+      InBetrieb: {}
+      AußerBetrieb: {}
+  ZUGÄNGLICHKEIT_ENUM:
+    permissible_values:
+      Öffentlich: {}
+      Kundenbeschränkt: {}
+      Mitarbeiterbeschränkt: {}
+  LADEKABELTYP_ENUM:
+    permissible_values:
+      Typ2: {}
+      CCS: {}
+      Schuko: {}

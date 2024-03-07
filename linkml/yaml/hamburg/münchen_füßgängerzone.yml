@@ -1,0 +1,81 @@
+id: https://base-x-ecosystem.com/FZM/
+name: FußgängerzonenMünchen
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdl: https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#
+  dbpedia-owl: http://dbpedia.org/ontology/status#
+  FZM: https://base-x-ecosystem.com/FZM/
+imports: linkml:types
+default_prefix: FZM
+default_range: string
+classes:
+  FußgängerzonenMünchen:
+    attributes:
+      Status:
+        title: Status
+        multivalued: false
+        identifier: false
+        required: true
+        range: STATUS_ENUM
+        slot_uri: dbpedia-owl:status
+      Straßenname:
+        title: Straßenname
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+      Zugänglichkeit:
+        title: Zugänglichkeit
+        multivalued: false
+        identifier: false
+        required: true
+        range: ZUGÄNGLICHKEIT_ENUM
+      Oberfläche:
+        title: Oberfläche
+        multivalued: false
+        identifier: false
+        required: true
+        range: OBERFLÄCHE_ENUM
+        slot_uri: dbpedia-owl:surfaceArea
+      Beleuchtung:
+        title: Beleuchtung
+        multivalued: false
+        identifier: false
+        required: true
+        range: boolean
+      Hindernis:
+        title: Hindernis
+        multivalued: false
+        identifier: false
+        required: true
+        range: HINDERNIS_ENUM
+      overlay_domain:
+        title: domain
+        slot_uri: sdl:domain
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_information:
+        title: information
+        slot_uri: sdl:information
+        range: string
+        multivalued: false
+        required: true
+enums:
+  STATUS_ENUM:
+    permissible_values:
+      Geöffnet: {}
+      TeilweiseGeschlossen: {}
+  ZUGÄNGLICHKEIT_ENUM:
+    permissible_values:
+      VollZugänglich: {}
+      EingeschränktZugänglich: {}
+  OBERFLÄCHE_ENUM:
+    permissible_values:
+      Pflasterstein: {}
+      Asphalt: {}
+  HINDERNIS_ENUM:
+    permissible_values:
+      Keine: {}
+      TemporäreBauarbeiten: {}

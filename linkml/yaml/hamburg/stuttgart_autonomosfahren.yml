@@ -1,0 +1,95 @@
+id: https://base-x-ecosystem.com/AFTS/
+name: AutonomesFahrenTeststreckenStuttgart
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdl: https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#
+  dbpedia-owl: http://dbpedia.org/ontology/status#
+  AFTS: https://base-x-ecosystem.com/AFTS/
+imports: linkml:types
+default_prefix: AFTS
+default_range: string
+classes:
+  AutonomesFahrenTeststreckenStuttgart:
+    attributes:
+      Status:
+        title: Status
+        multivalued: false
+        identifier: false
+        required: true
+        range: STATUS_ENUM
+        slot_uri: dbpedia-owl:status
+      Straßenname:
+        title: Straßenname
+        multivalued: false
+        identifier: false
+        required: true
+        range: string
+      Technologie:
+        title: Technologie
+        multivalued: false
+        identifier: false
+        required: true
+        range: TECHNOLOGIE_ENUM
+      Testzweck:
+        title: Testzweck
+        multivalued: false
+        identifier: false
+        required: true
+        range: TESTZWECK_ENUM
+      Zugänglichkeit:
+        title: Zugänglichkeit
+        multivalued: false
+        identifier: false
+        required: true
+        range: ZUGÄNGLICHKEIT_ENUM
+      Oberfläche:
+        title: Oberfläche
+        multivalued: false
+        identifier: false
+        required: true
+        range: OBERFLÄCHE_ENUM
+        slot_uri: dbpedia-owl:surfaceArea
+      Hindernis:
+        title: Hindernis
+        multivalued: false
+        identifier: false
+        required: true
+        range: HINDERNIS_ENUM
+      overlay_domain:
+        title: domain
+        slot_uri: sdl:domain
+        range: string
+        multivalued: false
+        required: true
+        pattern: ''
+      overlay_information:
+        title: information
+        slot_uri: sdl:information
+        range: string
+        multivalued: false
+        required: true
+enums:
+  STATUS_ENUM:
+    permissible_values:
+      Aktiv: {}
+      InPlanung: {}
+  TECHNOLOGIE_ENUM:
+    permissible_values:
+      V2X: {}
+      AutonomesFahrzeug: {}
+  TESTZWECK_ENUM:
+    permissible_values:
+      Sicherheit: {}
+      Effizienz: {}
+  ZUGÄNGLICHKEIT_ENUM:
+    permissible_values:
+      Forscher: {}
+      Öffentlichkeit: {}
+  OBERFLÄCHE_ENUM:
+    permissible_values:
+      Asphalt: {}
+      Beton: {}
+  HINDERNIS_ENUM:
+    permissible_values:
+      Keines: {}
+      KünstlicheHindernisse: {}

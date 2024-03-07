@@ -83,7 +83,7 @@ classes:
         required: true
         pattern: ''
       overlay_usageFrequency:
-        title: usage frequency
+        title: usageFrequency
         slot_uri: sdl:usageFrequency
         range: string
         multivalued: false
