@@ -17,7 +17,8 @@ if 'attributes' not in st.session_state:
     st.session_state.attributes = []
 if 'PREFIXES' not in st.session_state:
     st.session_state.PREFIXES = {"linkml": "https://w3id.org/linkml/",
-                                 "sdl": "https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#"}
+                                 "sdl": "https://raw.githubusercontent.com/GX4FM-Base-X/SemanticDataLink/main/oca/overlays/sdlOntology.ttl#",
+                                 "ROB": "http://opcfoundation.org/UA/ModelDesign.xsd"}
 if 'ENUMS' not in st.session_state:
     st.session_state.ENUMS = {}
 if 'SELECT' not in st.session_state:
@@ -239,11 +240,19 @@ for idx, attribute in enumerate(st.session_state.attributes):
             slot_uri_select = st.selectbox(
                 "Slot URIs:", [organization_id] + prefixes, key=f'attribute_slut_uri_selector_{idx}')
         with col2:
-            slot_uri_class = st.text_input(
-                "URI Class", value=attribute_name, key=f'attribute_slot_uri_class_{idx}')
-            if slot_uri_select != '' and slot_uri_class == '':
-                st.error(
-                    f"If you select a slot_uri you need to pass a target class")
+            if slot_uri_select == 'ROB':
+                slot_uri_class = st.selectbox(
+                    'Select the suitable class from OPC UA Robotics',
+                    ('OPCUAROBOTICSNamespaceMetadata', 'MotionDeviceSystemType', 'MotionDeviceType', 'AxisType',
+                     'PowerTrainType', 'MotorType', 'GearType', 'SafetyStateType', 'EmergencyStopFunctionType',
+                     'ProtectiveStopFunctionType', 'ControllerType', 'AuxiliaryComponentType', 'DriveType',
+                     'TaskControlType', 'LoadType', 'UserType'))
+            else:
+                slot_uri_class = st.text_input(
+                    "URI Class", value=attribute_name, key=f'attribute_slot_uri_class_{idx}')
+                if slot_uri_select != '' and slot_uri_class == '':
+                    st.error(
+                        f"If you select a slot_uri you need to pass a target class")
         if slot_uri_select != '' and slot_uri_class != '':
             attribute[attribute_name]['slot_uri'] = f"{slot_uri_select}:{slot_uri_class}"
             st.write(
