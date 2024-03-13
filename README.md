@@ -10,6 +10,10 @@ Semantic Data Link is a Streamlit-based web application designed to facilitate t
 
 For more information on the SemanticDataLink approach please refer to [oca/README.md](oca/README.md)
 
+### UI
+
+![Semantic Data Link](images/seamtic_data_link_ui.png)
+
 ## Usage
 
 ### Semantic Data Link Streamlit UI
