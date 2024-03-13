@@ -12,7 +12,7 @@ For more information on the SemanticDataLink approach please refer to [oca/READM
 
 ### UI
 
-![Semantic Data Link](images/seamtic_data_link_ui.png)
+![Semantic Data Link](images/seamticdatalink_ui.png)
 
 ## Usage
 
